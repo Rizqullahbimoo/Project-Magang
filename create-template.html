@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Template - DocTemp</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+  <div class="page-container">
+    <nav class="top-nav">
+      <div class="nav-left">
+        <a href="home.html"><i class="fas fa-home"></i> Home</a>
+      </div>
+      <div class="nav-center">
+        <img src="Logo PLNE.png" alt="PLN Logo" class="nav-logo"/>
+        <span>DocTemp</span>
+      </div>
+      <div class="nav-right">
+        <button class="icon-button"><i class="fas fa-undo"></i></button>
+        <button class="icon-button"><i class="fas fa-redo"></i></button>
+        <select class="nav-select">
+          <option>ENG</option>
+          <option>ID</option>
+        </select>
+        <button class="nav-button-download">Download</button>
+      </div>
+    </nav>
+
+    <div class="editor-container">
+      <div class="editor-form">
+        <div class="form-section">
+          <h2 class="form-section-title">COVER</h2>
+          <label for="judul">Judul Dokumen</label>
+          <input type="text" id="judul" placeholder="PEKERJAAN KAJIAN STUDI PENGEMBANGAN KELISTRIKAN PULAU NIAS" oninput="updatePreview()" />
+
+          <label for="nomor">Nomor Dokumen</label>
+          <input type="text" id="nomor" placeholder="0018.RKS/P.00.03/PLNE01200/2025" oninput="updatePreview()" />
+
+          <label for="jenis">Jenis Dokumen</label>
+          <input type="text" id="jenis" placeholder="DOKUMEN RKS" oninput="updatePreview()" />
+
+          <label>Daftar Isi</label>
+          <div id="bab-container">
+            <div class="bab-section">
+              <div class="bab-row">
+                <input type="text" class="bab-number-display" value="BAB I" disabled />
+                <input type="text" class="bab-title" value="INSTRUKSI KEPADA CALON PENYEDIA BARANG/JASA" oninput="updatePreview()" />
+                <button class="remove-bab-button" onclick="removeBab(this)" style="display:none;">&times;</button>
+              </div>
+              <textarea class="bab-content" placeholder="Masukkan konten untuk BAB I di sini..." oninput="updatePreview()"></textarea>
+            </div>
+            <div class="bab-section">
+              <div class="bab-row">
+                <input type="text" class="bab-number-display" value="BAB II" disabled />
+                <input type="text" class="bab-title" value="SYARAT-SYARAT UMUM PERJANJIAN" oninput="updatePreview()" />
+                <button class="remove-bab-button" onclick="removeBab(this)" style="display:none;">&times;</button>
+              </div>
+              <textarea class="bab-content" placeholder="Masukkan konten untuk BAB II di sini..." oninput="updatePreview()"></textarea>
+            </div>
+          </div>
+          <button class="add-button" onclick="addBab()">
+            <i class="fas fa-plus"></i>
+          </button>
+
+          <label for="bulan">Bulan Terbit</label>
+          <input type="text" id="bulan" placeholder="FEBRUARI" oninput="updatePreview()" />
+
+          <label for="tahun">Tahun Terbit</label>
+          <input type="text" id="tahun" placeholder="2025" oninput="updatePreview()" />
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section-title">Objective</h2>
+          <div id="objective-container">
+            {/* Objective items can be added here */}
+          </div>
+          <button class="add-button">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+        
+        <div class="save-button-container">
+          <button class="save-button main-action-button" onclick="updatePreview()">Save</button>
+        </div>
+      </div>
+
+      <div class="preview-panel" id="preview">
+        {/* Preview will be rendered here by JS */}
+      </div>
+    </div>
+    
+    <div class="preview-footer-toolbar">
+        <button><i class="fas fa-file-alt"></i> Templates</button>
+        <select>
+            <option>Poppins</option>
+            <option>Arial</option>
+            <option>Times New Roman</option>
+        </select>
+        <select>
+            <option>Medium</option>
+            <option>Small</option>
+            <option>Large</option>
+        </select>
+        <button><i class="fas fa-align-left"></i> Line Height</button>
+        <button><i class="fas fa-search-plus"></i></button>
+        <button><i class="fas fa-search-minus"></i></button>
+        <button><i class="fas fa-expand"></i></button>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,495 @@
+/* General body and page container */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+}
+
+.page-container { /* Used by create-template.html */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* === Styles for Home Page (image_f64058.png) === */
+.container.home-layout-new {
+  display: flex;
+  height: 100vh;
+  background-color: #FFFFFF;
+}
+
+.sidebar.home-sidebar-new {
+  width: 260px;
+  background-color: #343a40; /* Dark grey sidebar */
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  color: #f8f9fa;
+}
+
+.sidebar .logo.home-logo-new {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  padding-left: 10px;
+}
+
+.sidebar .logo.home-logo-new img {
+  height: 40px; /* Adjust to your new logo's aspect ratio */
+  /* width: auto; */
+  margin-bottom: 5px;
+}
+
+/* If you have a separate span for "DocTemp" text in the new logo */
+.sidebar .logo.home-logo-new span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #f8f9fa; /* Light text color for DocTemp */
+}
+
+.sidebar.home-sidebar-new a {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  padding: 12px 15px;
+  color: #adb5bd; /* Light grey text for nav links */
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 5px;
+  position: relative;
+}
+
+.sidebar.home-sidebar-new a i {
+  margin-right: 12px;
+  width: 20px;
+  text-align: center;
+}
+
+.sidebar.home-sidebar-new a:hover {
+  background-color: #495057;
+  color: #ffffff;
+}
+
+.sidebar.home-sidebar-new a.active {
+  color: #8a63d2; /* Purple for active link text and icon */
+  font-weight: bold;
+  background-color: transparent;
+}
+
+.sidebar.home-sidebar-new a.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: #8a63d2; /* Purple left border */
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.main.home-main-new {
+  flex: 1;
+  padding: 40px;
+  background-color: #f8f9fa; /* Light background for main content area */
+  overflow-y: auto;
+}
+
+.main-header.home-main-header-new {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.main-header.home-main-header-new h1 {
+  font-size: 28px;
+  color: #343a40;
+  margin: 0;
+}
+
+.main-header.home-main-header-new button {
+  background-color: #6f42c1; /* Purple button */
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+}
+.main-header.home-main-header-new button i {
+  margin-right: 8px;
+}
+.main-header.home-main-header-new button:hover {
+  background-color: #5a32a3;
+}
+
+.cards.home-cards-new {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.card.home-card-new {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  width: 220px; /* Adjust card width as needed */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.card.home-card-new img {
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+
+.card.home-card-new p {
+  margin-top: 10px; /* Adjusted from original to match general card text */
+  font-weight: 600;
+  color: #343a40;
+  font-size: 16px;
+}
+
+
+/* === Styles for Create Template Page (image_f794fd.png & letterhead/A4 features) === */
+
+/* Top Navigation for create-template.html */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 10px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  height: 60px;
+}
+
+.nav-left a, .nav-center span {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+.nav-left i {
+  margin-right: 8px;
+}
+.nav-logo { /* Used in create-template.html top-nav */
+  height: 30px;
+  margin-right: 8px;
+}
+.nav-center {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+}
+.nav-right button, .nav-right select {
+  margin-left: 10px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+}
+.nav-right .icon-button {
+    padding: 8px;
+}
+.nav-button-download {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* Editor Container for create-template.html */
+.editor-container { /* Main wrapper for editor and preview panel */
+  display: flex;
+  flex-grow: 1;
+  padding: 0px;
+  gap: 0px;
+  background-color: #f8f9fa;
+  overflow: hidden;
+}
+
+.editor-form { /* Left panel in create-template.html */
+  flex: 0 0 400px;
+  background: #ffffff;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: auto;
+  border-right: 1px solid #e0e0e0;
+}
+
+.form-section {
+  margin-bottom: 20px;
+}
+
+.form-section-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.editor-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  color: #555;
+  font-weight: normal;
+}
+
+.editor-form input[type="text"],
+.editor-form textarea {
+  width: calc(100% - 22px); /* Assumes 10px padding + 1px border each side */
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  background-color: #f9fafb;
+  box-sizing: border-box; /* Added for consistency */
+}
+.editor-form input[type="text"]:focus,
+.editor-form textarea:focus {
+    border-color: #7c3aed;
+    background-color: #fff;
+    outline: none;
+}
+
+/* Daftar Isi (BAB) Styling in editor form */
+#bab-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bab-section {
+  padding: 0;
+  border: none;
+  margin-bottom: 0;
+}
+
+.bab-row { /* For BAB number and BAB title inputs */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.bab-row .bab-number-display { /* BAB I, BAB II etc. input */
+  flex: 0 0 70px;
+  padding: 10px;
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+.bab-row .bab-title { /* Judul Bab input */
+  flex-grow: 1;
+  margin-bottom: 0;
+  background-color: #fff; /* Ensure it's white if a general input style is different */
+}
+.bab-row .remove-bab-button {
+    background: transparent;
+    border: none;
+    color: #dc3545;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 5px;
+    /* display: none; JS handles initial display */
+}
+
+.editor-form .bab-content { /* Textarea for BAB content */
+  /* width: calc(100% - 22px); /* Already defined generally for textarea */
+  min-height: 60px;
+  margin-top: 0px;
+  background-color: #fff;
+}
+
+.add-button { /* '+' button for adding BABs or Objectives */
+  background-color: #e9ecef;
+  color: #495057;
+  border: 1px dashed #ced4da;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  align-self: flex-start;
+}
+.add-button:hover {
+  background-color: #d1d5db;
+}
+
+/* Save Button in editor form */
+.save-button-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: auto; /* Pushes to bottom of flex column */
+    padding-top: 20px;
+}
+.main-action-button.save-button { /* Targeting the save button specifically if it has both classes */
+  background-color: #6f42c1;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+.main-action-button.save-button:hover {
+  background-color: #5a32a3;
+}
+
+
+/* Preview Panel (Right panel in create-template.html) & A4 Page Styling */
+.preview-panel {
+  flex: 1;
+  background: #e9ecef;
+  padding: 20px;
+  overflow-y: auto;
+  display: block; /* Changed from flex to allow normal block scrolling of A4 pages */
+}
+
+.preview-panel .document-page-container {
+  background: transparent;
+  padding: 0;
+  width: auto;
+  max-width: none;
+  min-height: auto;
+  box-shadow: none;
+  margin: 0;
+}
+
+.preview-panel .preview-page { /* Each A4 sheet */
+  background: white;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 20mm 15mm; /* Page margins: Top/Bottom 20mm, Left/Right 15mm */
+  margin: 20px auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  position: relative; /* For absolute positioning within if needed */
+}
+
+.preview-panel .preview-page:not(:first-child) {
+    border-top: none; /* Remove old separator */
+    /* Margin between pages handled by .preview-page's own margin */
+}
+
+/* Letterhead Styling (inside each .preview-page) */
+.letterhead-container {
+  width: 100%;
+}
+
+.letterhead-top-border {
+  height: 5px;
+  background-color: #00A2E8; /* Blue top border */
+  width: 100%;
+}
+
+.letterhead-content {
+  display: flex;
+  align-items: flex-start;
+  padding: 15px 0px; /* Padding within the letterhead content area */
+}
+
+.letterhead-logo {
+  flex: 0 0 auto;
+  margin-right: 20px;
+}
+
+.letterhead-logo img {
+  height: 50px;
+  display: block;
+}
+
+.letterhead-text {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.letterhead-text .company-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  margin: 0 0 5px 0;
+  padding-bottom: 2px;
+  border-bottom: 2px solid #000; /* Underline for company name */
+  display: inline-block;
+}
+
+.letterhead-text .address {
+  font-size: 10px;
+  color: #333;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.page-content-after-letterhead {
+  padding-top: 10mm; /* Space between letterhead and main page content */
+}
+
+.preview-panel .cover-page .page-content-after-letterhead {
+    padding-top: 5mm; /* Less space on cover page if needed */
+}
+
+.preview-panel .continuous-page .page-content-after-letterhead h3 {
+    margin-top: 0; /* Adjust heading margin after letterhead */
+}
+
+/* Preview Footer Toolbar (below editor-container) */
+.preview-footer-toolbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #343a40;
+  padding: 10px 20px;
+  color: white;
+  height: 50px;
+  gap: 15px;
+}
+.preview-footer-toolbar button,
+.preview-footer-toolbar select {
+  background: #495057;
+  color: white;
+  border: 1px solid #6c757d;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.preview-footer-toolbar button i {
+  margin-right: 5px;
+}
+
+/* Utility */
+.hidden {
+  display: none !important;
+}
