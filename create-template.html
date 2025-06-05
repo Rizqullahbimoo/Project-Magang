@@ -75,7 +75,6 @@
         <div class="form-section">
           <h2 class="form-section-title">Objective</h2>
           <div id="objective-container">
-            {/* Objective items can be added here */}
           </div>
           <button class="add-button">
             <i class="fas fa-plus"></i>
@@ -87,9 +86,16 @@
         </div>
       </div>
 
-      <div class="preview-panel" id="preview">
-        {/* Preview will be rendered here by JS */}
+      <div class="preview-section">
+        <div class="preview-controls">
+          <button id="prevPageBtn" onclick="prevPage()"><i class="fas fa-chevron-left"></i> Previous</button>
+          <span id="pageIndicator">Page 0 of 0</span>
+          <button id="nextPageBtn" onclick="nextPage()">Next <i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="preview-panel" id="preview">
+        </div>
       </div>
+
     </div>
     
     <div class="preview-footer-toolbar">
@@ -109,8 +115,6 @@
         <button><i class="fas fa-search-minus"></i></button>
         <button><i class="fas fa-expand"></i></button>
     </div>
-
   </div>
 </body>
 </html>
-/* test */

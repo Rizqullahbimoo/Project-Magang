@@ -493,4 +493,191 @@ body {
 .hidden {
   display: none !important;
 }
-/* test */
+
+/* ... (CSS Anda yang sudah ada) ... */
+
+/* Styling untuk Halaman Daftar Isi */
+.preview-page.toc-page .toc-title {
+  text-align: center;
+  font-size: 18px; /* Sesuaikan dengan style judul lainnya */
+  font-weight: bold;
+  margin-top: 20px; /* Jarak dari kop surat atau atas konten */
+  margin-bottom: 25px;
+  text-transform: uppercase;
+}
+
+.preview-page.toc-page .toc-list {
+  margin-left: 10mm; /* Indentasi untuk daftar isi */
+  margin-right: 10mm;
+}
+
+.toc-entry {
+  display: flex;
+  justify-content: space-between; /* Judul di kiri, nomor halaman di kanan */
+  align-items: baseline;
+  margin-bottom: 10px; /* Jarak antar entri */
+  font-size: 12px; /* Ukuran font entri daftar isi */
+  line-height: 1.6;
+}
+
+.toc-entry .toc-item-text {
+  text-align: left;
+  /* Untuk efek titik-titik (lebih advance, bisa ditambahkan nanti jika perlu) */
+  /* flex-grow: 1; */
+}
+
+.toc-entry .toc-item-page-num {
+  text-align: right;
+  font-weight: normal; /* Atau bold jika ingin nomor halaman tebal */
+  /* flex-shrink: 0; */
+  /* padding-left: 10px; /* Jarak dari titik-titik jika ada */
+}
+
+/* Styling untuk nomor halaman (jika Anda aktifkan placeholder-nya) */
+.page-number-display {
+    position: absolute;
+    bottom: 10mm; /* Sesuaikan posisi dari bawah */
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 10px;
+    color: #555;
+}
+
+/* ... (CSS Anda yang sudah ada) ... */
+
+/* Styling untuk  Kanan Pratinjau (Wrapper baru) */
+.preview-section {
+  flex: 1; /* Mengambil sisa ruang di editor-container */
+  display: flex;
+  flex-direction: column;
+  background: #e9ecef; /* Background untuk area pratinjau keseluruhan */
+  overflow: hidden; /* Mencegah scroll ganda jika preview-panel juga scroll */
+}
+
+/* Styling untuk Kontrol Navigasi Pratinjau */
+.preview-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: #f8f9fa; /* Background untuk bar kontrol */
+  border-bottom: 1px solid #dee2e6;
+  flex-shrink: 0; /* Agar tidak mengecil */
+}
+
+.preview-controls button {
+  background-color: #6f42c1; /* Warna ungu seperti tombol save */
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 10px;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+}
+.preview-controls button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+.preview-controls button:hover:not(:disabled) {
+  background-color: #5a32a3;
+}
+.preview-controls button i {
+  font-size: 12px;
+}
+.preview-controls button .fa-chevron-left {
+  margin-right: 6px;
+}
+.preview-controls button .fa-chevron-right {
+  margin-left: 6px;
+}
+
+
+#pageIndicator {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  min-width: 100px; /* Agar lebar stabil */
+  text-align: center;
+}
+
+/* Penyesuaian untuk .preview-panel agar mengisi sisa ruang di .preview-section */
+.preview-panel {
+  flex-grow: 1; /* Mengisi sisa ruang di .preview-section */
+  /* background: #e9ecef; Dihapus, karena .preview-section sudah punya background */
+  padding: 20px;
+  overflow-y: auto;
+  display: block;
+}
+
+/* ... (CSS Anda yang sudah ada) ... */
+
+/* Styling untuk Input Sub-BAB di Form Editor */
+.bab-section .sub-bab-controls {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.add-sub-bab-button { /* Tombol "+ Tambah Sub-BAB" */
+  background-color: #f0f0f0;
+  border: 1px dashed #ccc;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.add-sub-bab-button:hover {
+  background-color: #e0e0e0;
+}
+
+.sub-bab-list-container {
+  margin-left: 20px; /* Indentasi untuk daftar sub-bab di form */
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sub-bab-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+}
+
+.sub-bab-item .sub-bab-number-display {
+  font-weight: bold;
+  font-size: 13px;
+  flex-shrink: 0;
+  padding: 0 5px;
+  color: #555;
+}
+
+.sub-bab-item .sub-bab-title { /* Input judul Sub-BAB */
+  flex-grow: 1;
+  padding: 8px; /* Sesuaikan paddingnya */
+  font-size: 13px; /* Sesuaikan fontnya */
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background-color: #fdfdfd; /* Sedikit beda dari input BAB utama */
+}
+
+.remove-sub-bab-button {
+  background: transparent;
+  border: none;
+  color: #ef4444; /* Warna merah untuk tombol hapus */
+  font-size: 1.1em;
+  cursor: pointer;
+  padding: 0 5px;
+}
+
+
+
+.toc-entry.toc-level-2 {
+  margin-left: 20mm;
+}
