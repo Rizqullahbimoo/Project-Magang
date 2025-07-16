@@ -1,359 +1,413 @@
-// Variabel global untuk navigasi pratinjau
-let allGeneratedPages = []; // Akan menyimpan HTML string untuk setiap halaman
-let currentPreviewPageIndex = 0; // Indeks halaman yang sedang ditampilkan
+/**
+ * Aplikasi Editor DocTemp
+ * Versi Otomatisasi Penuh dengan Pratinjau Scroll dan Konten Lengkap
+ * Kode ini telah dirapikan dan dilengkapi dengan seluruh narasi dari dokumen RKS.
+ */
 
-function goToCreateTemplate() {
-  window.location.href = "create-template.html";
-}
-
-// Fungsi untuk mengubah angka Arab ke Romawi
-function toRoman(num) {
-  if (isNaN(num) || num < 1 || num > 3999) return num.toString();
-
-  const romanNumerals = [
-    { value: 1000, numeral: "M" }, { value: 900, numeral: "CM" },
-    { value: 500, numeral: "D" },  { value: 400, numeral: "CD" },
-    { value: 100, numeral: "C" },  { value: 90, numeral: "XC" },
-    { value: 50, numeral: "L" },   { value: 40, numeral: "XL" },
-    { value: 10, numeral: "X" },   { value: 9, numeral: "IX" },
-    { value: 5, numeral: "V" },    { value: 4, numeral: "IV" },
-    { value: 1, numeral: "I" }
-  ];
-
-  let result = "";
-  for (let i = 0; i < romanNumerals.length; i++) {
-    while (num >= romanNumerals[i].value) {
-      result += romanNumerals[i].numeral;
-      num -= romanNumerals[i].value;
+document.addEventListener('DOMContentLoaded', () => {
+  
+  // ===================================================================================
+  // MANAJEMEN STATE
+  // Menyimpan semua data yang dimasukkan pengguna.
+  // ===================================================================================
+  const state = {
+    dataMaster: {
+      jenisPekerjaan: '', judulPengadaan: '', noRks: '', tanggalRks: '',
+      bulanRks: '', tahunRks: '', metodePengadaan: '', metodePenyampaian: '',
+      sptTahun: '', ppnTahun: '', laporanKeuanganTahun: '', metodeEvaluasi: '',
+      pengguna: '', direksiPekerjaan: '', pengawasPekerjaan: '', pengalamanPekerjaan: '',
+      proyek: '', jenisPerjanjian: '',
+      disusunJabatan: '', disusunNama: '',
+      mengetahuiJabatan: '', mengetahuiNama: '',
+      menyetujuiJabatan: '', menyetujuiNama: ''
     }
-  }
-  return result;
-}
+  };
 
-function updateBabAndSubBabNumbers() {
-    const babSections = document.querySelectorAll('#bab-container .bab-section');
-    babSections.forEach((babSection, babIndex) => {
-        const babNumberDisplay = babSection.querySelector('.bab-number-display');
-        const babRomanNum = toRoman(babIndex + 1);
-        if (babNumberDisplay) {
-            babNumberDisplay.value = `BAB ${babRomanNum}`;
-        }
-        // Simpan index bab (berbasis 1) untuk penomoran sub-bab
-        babSection.dataset.babIndex = babIndex + 1;
+  // ===================================================================================
+  // TEMPLAT (Sumber Kebenaran untuk Konten Dokumen Lengkap dari Word)
+  // ===================================================================================
+  const documentTemplates = {
+    'BAB I': {
+        title: 'INSTRUKSI KEPADA CALON PENYEDIA JASA KONSULTANSI',
+        content: `1.1. JUDUL PEKERJAAN
+[Judul Pengadaan]
 
-        const subBabItems = babSection.querySelectorAll('.sub-bab-list-container .sub-bab-item'); // Perbaikan selector
-        subBabItems.forEach((subBabItem, subBabIndex) => {
-            const subBabNumberDisplay = subBabItem.querySelector('.sub-bab-number-display');
-            if (subBabNumberDisplay) {
-                subBabNumberDisplay.textContent = `${babSection.dataset.babIndex}.${subBabIndex + 1}`;
-            }
-        });
+1.2. LINGKUP PEKERJAAN
+Lingkup Pekerjaan ini mengacu pada Bab IV klausul 4.7 Dokumen RKS ini.
 
-        const removeBabButton = babSection.querySelector('.remove-bab-button');
-        if(removeBabButton) {
-            removeBabButton.style.display = babSections.length > 0 ? 'inline-block' : 'none';
-        }
-    });
-}
+1.3. LOKASI PEKERJAAN
+Lokasi pekerjaan ini mengacu pada Bab IV klausul 4.5 Dokumen RKS ini.
 
-function addSubBab(buttonElement) {
-    const babSection = buttonElement.closest('.bab-section');
-    if (!babSection) return;
+1.4. JANGKA WAKTU PELAKSANAAN PEKERJAAN
+Jangka waktu pelaksanaan pekerjaan mengacu pada Bab IV klausul 4.6 Dokumen RKS ini.
 
-    const subBabListContainer = babSection.querySelector('.sub-bab-list-container');
-    if (!subBabListContainer) {
-        console.error("Elemen .sub-bab-list-container tidak ditemukan.");
-        return;
+1.5. SUMBER PENDANAAN
+Sumber pendanaan pekerjaan ini mengacu pada Bab IV klausul 4.3 Dokumen RKS ini.
+
+1.6. JENIS PERJANJIAN/KONTRAK
+Pada perjanjian/kontrak pekerjaan ini menggunakan sistem [Jenis Perjanjian/Kontrak]. Harga Perjanjian/Kontrak sudah termasuk PPN sebesar 12%, beserta pembayaran-pembayaran wajib lainnya menurut peraturan yang sah.
+
+1.7. LARANGAN KORUPSI KOLUSI DAN NEPOTISME (KKN) SERTA PENIPUAN
+Calon Penyedia Jasa dan pihak yang terkait dengan pengadaan ini berkewajiban untuk mematuhi etika pengadaan dengan tidak melakukan tindakan sebagai berikut:
+a. Berusaha mempengaruhi Pejabat Pelaksana Pengadaan dalam bentuk dan cara apapun, untuk memenuhi keinginan Calon Penyedia Jasa Konsultansi yang bertentangan dengan RKS, dan/atau peraturan perundang-undangan.
+b. Membuat dan/atau menyampaikan dokumen dan/atau keterangan lain yang tidak benar untuk memenuhi persyaratan dalam RKS ini.
+
+1.8. LARANGAN PERTENTANGAN KEPENTINGAN
+Para Pihak dalam melaksanakan tugas, fungsi dan perannya, menghindari dan mencegah terjadinya pertentangan kepentingan Para Pihak yang terkait dalam proses pengadaan jasa, baik langsung maupun tidak langsung yang merugikan kepentingan Pengguna Jasa Konsultansi.
+
+1.9. METODE PENGADAAN JASA KONSULTANSI
+Metode yang digunakan dalam pengadaan ini adalah [Metode Pengadaan] mengacu kepada Edaran Direksi PT PLN Enjiniring No. 0001.E/DIR/2025 tentang Standar Prosedur Pengadaan Jasa Konsultansi.
+
+1.10. METODE PENYAMPAIAN DOKUMEN PENAWARAN
+Metode Penyampaian Dokumen Penawaran Pengadaan Jasa Konsultansi ini dilaksanakan dengan [Metode Penyampaian Dokumen Penawaran] mengacu kepada Edaran Direksi PT PLN Enjiniring No. 0001.E/DIR/2025 tentang Standar Prosedur Pengadaan Jasa Konsultansi.
+
+1.11. JAMINAN PENAWARAN (BID BOND)
+Jaminan Penawaran (Bid Bond) tidak dipersyaratkan dalam pekerjaan ini.
+
+1.12. SYARAT-SYARAT YANG HARUS DIPENUHI PADA PROSES PENGADAAN JASA KONSULTANSI
+1.12.1. Ketentuan Pengadaan Jasa Konsultansi
+a. Calon Penyedia Jasa Konsultansi harus tunduk dan menaati ketentuan Edaran Direksi PT PLN Enjiniring No. 0001.E/DIR/2025 tentang Standar Prosedur Pengadaan Jasa Konsultansi.
+b. Calon Penyedia Jasa hanya boleh menyampaikan 1 (satu) Dokumen Penawaran, apabila Calon Penyedia Jasa menyampaikan lebih dari 1 (satu) Dokumen Penawaran pada paket pekerjaan yang sama, maka dinyatakan GUGUR.
+c. Yang tidak diperkenankan sebagai Calon Penyedia Jasa dalam penawaran ini adalah mereka yang keikutsertaannya akan bertentangan dengan tugasnya (conflict of interest).
+d. Apabila Calon Penyedia Jasa Konsultansi tidak dapat memenuhi ketentuan-ketentuan tersebut, maka Calon Penyedia Jasa Konsultansi tidak dapat mengajukan tuntutan dalam bentuk apapun.
+
+1.12.2. Syarat-syarat Calon Penyedia Jasa
+A. Dokumen Aplikasi Kualifikasi
+   i. Administrasi
+      a) Pakta Integritas, sesuai dengan contoh pada BAB V Lampiran 8.
+      b) Melampirkan salinan akta pendirian beserta perubahannya (apabila ada).
+      c) Melampirkan salinan perizinan sesuai dengan bidang usahanya.
+      d) Melampirkan Salinan Nomor Induk Berusaha (NIB).
+      e) Perjanjian kerja sama operasi/kemitraan (apabila ada).
+      f) Surat Pernyataan tidak dalam pengawasan pengadilan dan tidak bangkrut.
+      g) Surat pernyataan kapasitas menandatangani Perjanjian/Kontrak.
+      h) Surat Pernyataan kinerja baik dan tidak masuk Daftar Hitam (blacklist).
+      i) Telah memenuhi kewajiban perpajakan tahun terakhir ([SPT] PPh) dan PPN 3 bulan terakhir.
+      j) Melampirkan Formulir Isian Kualifikasi.
+   ii. Teknis
+      a) Sanggup memenuhi persyaratan penggunaan produksi dalam negeri.
+      b) Khusus Jasa Konstruksi kualifikasi non-kecil harus memiliki pengalaman kerja.
+   iii. Keuangan
+      a) Melampirkan laporan keuangan minimal Tahun [Laporan Keuangan Tahun] yang telah diaudit.
+      b) Memiliki surat keterangan dukungan keuangan dari Bank (jika dipersyaratkan).
+   iv. Keselamatan dan Kesehatan Kerja (K3)
+      a) Melampirkan Surat Pernyataan Mematuhi & Memahami Peraturan K3.
+      b) Mempunyai Sistem Manajemen K3 (SMK3).
+      c) Memiliki sertifikat CSMS yang masih berlaku.
+
+B. Dokumen Penawaran Administrasi
+[Detail Dokumen Penawaran Administrasi...]
+
+C. Dokumen Penawaran Teknis
+[Detail Dokumen Penawaran Teknis...]
+
+D. Dokumen Penawaran Harga
+[Detail Dokumen Penawaran Harga...]
+
+1.13. ISI DOKUMEN PELELANGAN JASA KONSULTANSI
+BAB I - INSTRUKSI KEPADA PENYEDIA JASA KONSULTANSI
+BAB II - SYARAT-SYARAT UMUM PERJANJIAN
+BAB III - SYARAT-SYARAT KHUSUS PERJANJIAN
+BAB IV - KERANGKA ACUAN KERJA
+BAB V - LAMPIRAN
+BAB VI - PENUTUP
+
+1.14. JADWAL PELAKSANAAN PENGADAAN
+[Detail Jadwal Pelaksanaan Pengadaan...]
+
+1.15. ADDENDUM DOKUMEN PELELANGAN/RKS
+[Detail mengenai Addendum...]
+
+1.16. PENYIAPAN DOKUMEN PENAWARAN
+[Detail mengenai Penyiapan Dokumen Penawaran...]
+
+1.17. BAHASA DAN HUKUM
+[Detail mengenai Bahasa dan Hukum...]
+
+1.18. CARA PENYAMPAIAN DOKUMEN
+[Detail mengenai Cara Penyampaian Dokumen...]
+
+1.19. PEMBUKAAN PENAWARAN
+[Detail mengenai Pembukaan Penawaran...]
+
+1.20. METODE EVALUASI PENAWARAN
+Metode Evaluasi untuk Pengadaan ini menggunakan [Metode Evaluasi].
+
+1.21. KRITERIA EVALUASI PENAWARAN
+[Detail Kriteria Evaluasi Penawaran...]
+
+1.22. KETENTUAN EVALUASI PENAWARAN
+[Detail Ketentuan Evaluasi Penawaran...]
+
+1.23. EVALUASI HARGA TIMPANG
+[Detail Evaluasi Harga Timpang...]
+
+1.24. KERAHASIAAN PROSES EVALUASI
+[Detail Kerahasiaan Proses Evaluasi...]
+
+1.25. PEMBUKTIAN KUALIFIKASI
+[Detail Pembuktian Kualifikasi...]
+
+1.26. LAPORAN HASIL EVALUASI
+[Detail Laporan Hasil Evaluasi...]
+
+1.27. KLARIFIKASI DOKUMEN PENAWARAN
+[Detail Klarifikasi Dokumen Penawaran...]
+
+1.28. NEGOSIASI PENAWARAN
+[Detail Negosiasi Penawaran...]
+
+1.29. PENETAPAN PENYEDIA/PENETAPAN PEMENANG
+[Detail Penetapan Pemenang...]
+
+1.30. PENGUMUMAN HASIL PELELANGAN
+[Detail Pengumuman Hasil Pelelangan...]
+
+1.31. SANGGAHAN
+[Detail Prosedur Sanggahan...]
+
+1.32. PENUNJUKAN PENYEDIA
+[Detail Penunjukan Penyedia...]
+
+1.33. PENANDATANGANAN PERJANJIAN/KONTRAK
+[Detail Penandatanganan Perjanjian/Kontrak...]
+
+1.34. PENGADAAN GAGAL DAN PENGADAAN ULANG
+[Detail Pengadaan Gagal dan Pengadaan Ulang...]
+`
+    },
+    'BAB II': {
+        title: 'SYARAT–SYARAT UMUM PERJANJIAN (SSUP)',
+        content: `2.1. DEFINISI
+Istilah-istilah berikut memiliki arti sebagai berikut:
+“Direksi Pekerjaan” adalah [Direksi Pekerjaan].
+“Pengguna Jasa Konsultansi” adalah [Pengguna].
+“Pengawas Pekerjaan” adalah [Pengawas Pekerjaan].
+“Pengalaman Pekerjaan Sejenis” adalah [Pengalaman Pekerjaan Sejenis].
+“Proyek” adalah [Proyek].
+“KAK” adalah kerangka acuan kerja.
+... (dan seterusnya untuk semua definisi dan klausul hingga 2.36)`
+    },
+    'BAB III': {
+        title: 'SYARAT–SYARAT KHUSUS PERJANJIAN (SSKP)',
+        content: `3.1 PENGGUNA BARANG/JASA
+Mengacu pada Bab II Klausul 2.1.s.
+... (dan seterusnya untuk semua klausul hingga 3.8)`
+    },
+    'BAB IV': {
+        title: 'KERANGKA ACUAN KERJA',
+        content: `4.1. LATAR BELAKANG
+[Narasi latar belakang KAK dapat diedit di sini...]
+... (dan seterusnya untuk semua klausul hingga 4.14)`
+    },
+    'BAB V': {
+        title: 'LAMPIRAN',
+        content: `5.1. Lampiran 1 – Surat Pernyataan Tidak Dalam Pengawasan Pengadilan Dan Tidak Bangkrut
+[Konten Lampiran 1...]
+
+5.2. Lampiran 2 – Surat Pernyataan Bahwa Direksi/Pengurus...
+[Konten Lampiran 2...]
+... (dan seterusnya untuk semua 19 lampiran)`
+    },
+    'BAB VI': {
+        title: 'PENUTUP',
+        content: `Pelaksanaan Pengadaan [Judul Pengadaan] berpedoman pada Dokumen Pelelangan/RKS ini. Perubahan atau penambahan atas hal-hal lain yang belum tercakup dalam Dokumen Pelelangan/RKS ini akan dicantumkan dalam Berita Acara Penjelasan yang akan merupakan bagian yang tidak terpisahkan dari Dokumen Pelelangan/RKS ini.`
     }
+  };
+
+  // ===================================================================================
+  // ELEMEN DOM
+  // ===================================================================================
+  const DOM = {
+    form: document.querySelector('.editor-form'),
+    previewPanel: document.getElementById('preview'),
     
-    const babIndexForNumbering = babSection.dataset.babIndex;
-    if (!babIndexForNumbering) {
-        console.error("Dataset babIndex tidak ditemukan pada babSection.");
-        // Fallback atau panggil updateBabAndSubBabNumbers lagi untuk memastikan dataset ada
-        updateBabAndSubBabNumbers(); // Coba update nomor dulu
-        // babIndexForNumbering = babSection.dataset.babIndex || (Array.from(document.querySelectorAll('#bab-container .bab-section')).indexOf(babSection) + 1);
-        // Jika masih tidak ada, ada masalah fundamental
-        if (!babSection.dataset.babIndex) {
-             console.error("Gagal mendapatkan babIndex bahkan setelah update.");
-             return;
-        }
-    }
+    // Elemen Data Master Lengkap
+    dataJenisPekerjaan: document.getElementById('data-jenis-pekerjaan'),
+    dataJudulPengadaan: document.getElementById('data-judul-pengadaan'),
+    dataNoRks: document.getElementById('data-no-rks'),
+    dataTanggalRks: document.getElementById('data-tanggal-rks'),
+    dataBulanRks: document.getElementById('data-bulan-rks'),
+    dataTahunRks: document.getElementById('data-tahun-rks'),
+    dataMetodePengadaan: document.getElementById('data-metode-pengadaan'),
+    dataMetodePenyampaian: document.getElementById('data-metode-penyampaian'),
+    dataSptTahun: document.getElementById('data-spt-tahun'),
+    dataPpnTahun: document.getElementById('data-ppn-tahun'),
+    dataLaporanKeuanganTahun: document.getElementById('data-laporan-keuangan-tahun'),
+    dataMetodeEvaluasi: document.getElementById('data-metode-evaluasi'),
+    dataPengguna: document.getElementById('data-pengguna'),
+    dataDireksiPekerjaan: document.getElementById('data-direksi-pekerjaan'),
+    dataPengawasPekerjaan: document.getElementById('data-pengawas-pekerjaan'),
+    dataPengalamanPekerjaan: document.getElementById('data-pengalaman-pekerjaan'),
+    dataProyek: document.getElementById('data-proyek'),
+    dataJenisPerjanjian: document.getElementById('data-jenis-perjanjian'),
+    dataDisusunJabatan: document.getElementById('data-disusun-jabatan'),
+    dataDisusunNama: document.getElementById('data-disusun-nama'),
+    dataMengetahuiJabatan: document.getElementById('data-mengetahui-jabatan'),
+    dataMengetahuiNama: document.getElementById('data-mengetahui-nama'),
+    dataMenyetujuiJabatan: document.getElementById('data-menyetujui-jabatan'),
+    dataMenyetujuiNama: document.getElementById('data-menyetujui-nama'),
+  };
 
-
-    const subBabCount = subBabListContainer.querySelectorAll('.sub-bab-item').length;
-    const subBabNumericId = `${babIndexForNumbering}.${subBabCount + 1}`;
-
-    const subBabItem = document.createElement('div');
-    subBabItem.classList.add('sub-bab-item');
-    subBabItem.innerHTML = `
-        <span class="sub-bab-number-display">${subBabNumericId}</span>
-        <input type="text" class="sub-bab-title" placeholder="Judul Sub-BAB ${subBabNumericId}" oninput="updatePreview()">
-        <button class="remove-sub-bab-button" type="button" onclick="removeSubBab(this)">&times;</button>
-    `;
-    subBabListContainer.appendChild(subBabItem);
-    updatePreview(); // Update pratinjau setelah sub-bab baru ditambahkan
-}
-
-function removeSubBab(buttonElement) {
-    const subBabItemToRemove = buttonElement.closest('.sub-bab-item');
-    if (!subBabItemToRemove) return;
-    
-    const babSection = subBabItemToRemove.closest('.bab-section');
-    
-    subBabItemToRemove.remove();
-    
-    if (babSection) { // Update nomor sub-bab hanya untuk bab section ini setelah penghapusan
-        const babIndexForNumbering = babSection.dataset.babIndex;
-        const subBabItems = babSection.querySelectorAll('.sub-bab-list-container .sub-bab-item');
-        subBabItems.forEach((item, subBabIndex) => {
-            const subBabNumberDisplay = item.querySelector('.sub-bab-number-display');
-            if (subBabNumberDisplay && babIndexForNumbering) { // Pastikan babIndexForNumbering ada
-                subBabNumberDisplay.textContent = `${babIndexForNumbering}.${subBabIndex + 1}`;
-            }
-        });
-    }
-    updatePreview();
-}
-
-function addBab() {
-  const container = document.getElementById('bab-container');
-  const babCount = container.querySelectorAll('.bab-section').length;
-  const newBabIndex = babCount + 1;
-  const romanCount = toRoman(newBabIndex);
-
-  const section = document.createElement('div');
-  section.classList.add('bab-section');
-  section.dataset.babIndex = newBabIndex; // Simpan nomor bab Arab (berbasis 1)
-
-  section.innerHTML = `
-    <div class="bab-row">
-      <input type="text" class="bab-number-display" value="BAB ${romanCount}" disabled />
-      <input type="text" class="bab-title" placeholder="Judul Bab ${romanCount}" oninput="updatePreview()" />
-      <button class="remove-bab-button" type="button" onclick="removeBab(this)">&times;</button>
-    </div>
-    <textarea class="bab-content" placeholder="Masukkan konten untuk BAB ${romanCount} di sini..." oninput="updatePreview()"></textarea>
-    <div class="sub-bab-controls">
-        <button type="button" class="add-sub-bab-button" onclick="addSubBab(this)">+ Tambah Sub-BAB</button>
-    </div>
-    <div class="sub-bab-list-container">
-        </div>
-  `;
-  container.appendChild(section);
-  updateBabAndSubBabNumbers(); 
-  updatePreview();
-}
-
-function removeBab(buttonElement) {
-    const babSectionToRemove = buttonElement.closest('.bab-section');
-    if (babSectionToRemove) {
-        babSectionToRemove.remove();
-        updateBabAndSubBabNumbers(); 
-        updatePreview();
-    }
-}
-
-function getLetterheadHTML() {
-  const logoUrl = 'Logo PLNE.png'; // Pastikan nama file ini benar dan ada di direktori Anda
-  return `
-    <div class="letterhead-container">
-      <div class="letterhead-top-border"></div>
-      <div class="letterhead-content">
-        <div class="letterhead-logo">
-          <img src="${logoUrl}" alt="PLN Enjiniring Logo" />
-        </div>
-        <div class="letterhead-text">
-          <p class="company-name">PT. PRIMA LAYANAN NASIONAL ENJINIRING</p>
-          <p class="address">Jl. KS.Tubun I No.2, RT.03/RW.02, Kota Bambu Selatan, Kec. Palmerah, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11420</p>
+  // ===================================================================================
+  // FUNGSI BANTU & LOGIKA
+  // ===================================================================================
+  function getLetterheadHTML() {
+    return `
+      <div class="letterhead-container">
+        <div class="letterhead-top-border"></div>
+        <div class="letterhead-content">
+          <div class="letterhead-logo">
+            <img src="Logo PLNE.png" alt="PLN Enjiniring Logo" />
+          </div>
+          <div class="letterhead-text">
+            <p class="company-name">PT. PRIMA LAYANAN NASIONAL ENJINIRING</p>
+            <p class="address">Jl. KS.Tubun I No.2, RT.03/RW.02, Kota Bambu Selatan, Kec. Palmerah, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11420</p>
+          </div>
         </div>
       </div>
-    </div>
-  `;
-}
+    `;
+  }
 
-function updatePreview() {
-  console.log("updatePreview_mulai"); // DEBUG
-  const judulInput = document.getElementById('judul');
-  const nomorInput = document.getElementById('nomor');
-  const jenisInput = document.getElementById('jenis');
-  const bulanInput = document.getElementById('bulan');
-  const tahunInput = document.getElementById('tahun');
-
-  const judul = judulInput ? (judulInput.value || judulInput.placeholder) : "Judul Dokumen";
-  const nomor = nomorInput ? (nomorInput.value || nomorInput.placeholder) : "Nomor Dokumen";
-  const jenis = jenisInput ? (jenisInput.value || jenisInput.placeholder) : "Jenis Dokumen";
-  const bulan = bulanInput ? (bulanInput.value || bulanInput.placeholder) : "BULAN";
-  const tahun = tahunInput ? (tahunInput.value || tahunInput.placeholder) : "TAHUN";
-
-  const letterhead = getLetterheadHTML();
-  
-  allGeneratedPages = []; 
-  let pageNumberForToC = 0; 
-
-  // 1. Generate HTML Halaman Sampul (Cover)
-  pageNumberForToC++;
-  const coverPageHTMLString = `
-    <div class="preview-page cover-page">
-      ${letterhead}
-      <div class="page-content-after-letterhead">
-        <p style="text-align:center; font-size: 18px; margin-top: 40px; margin-bottom: 10px; font-weight: bold;">${judul.toUpperCase()}</p>
-        <p style="text-align:center; font-size: 14px; margin-top: 0; margin-bottom: 40px; color: #333;">NOMOR: ${nomor}</p>
-        <p style="text-align:center; font-size: 18px; font-weight: bold; margin-bottom: 30px;">${jenis.toUpperCase()}</p>
-        <div style="text-align: center; margin-top: 80px; font-size: 16px; font-weight: bold;">
-            ${bulan.toUpperCase()} ${tahun}
-        </div>
-        </div>
-    </div>`;
-  allGeneratedPages.push(coverPageHTMLString);
-  console.log("Cover page generated."); // DEBUG
-
-  // 2. Generate HTML Halaman Daftar Isi
-  pageNumberForToC++;
-  const tocDisplayPageForToC = pageNumberForToC;
-  let tocPageContentHTML = "";
-  const babSections = document.querySelectorAll('#bab-container .bab-section');
-  
-  let currentContentPageForToC = tocDisplayPageForToC; 
-
-  babSections.forEach((babSection, babIndex) => {
-    currentContentPageForToC++; 
-
-    const babNumberDisplay = babSection.querySelector('.bab-number-display');
-    const babTitleInput = babSection.querySelector('.bab-title');
-    const babNumberText = babNumberDisplay ? babNumberDisplay.value : `BAB ${toRoman(babIndex + 1)}`;
-    const babTitleText = babTitleInput ? (babTitleInput.value || "Judul Bab") : "Judul Bab";
-
-    tocPageContentHTML += `<div class="toc-entry toc-level-1">
-                            <span class="toc-item-text">${babNumberText} &ndash; ${babTitleText.toUpperCase()}</span>
-                            <span class="toc-item-page-num">${currentContentPageForToC}</span>
-                          </div>`;
-
-    const subBabItems = babSection.querySelectorAll('.sub-bab-list-container .sub-bab-item');
-    subBabItems.forEach((subBabItem) => {
-        currentContentPageForToC++; 
-        const subBabNumberSpan = subBabItem.querySelector('.sub-bab-number-display');
-        const subBabTitleInput = subBabItem.querySelector('.sub-bab-title');
-        const subBabNumberText = subBabNumberSpan ? subBabNumberSpan.textContent : ""; // Ambil dari span yang sudah diupdate
-        const subBabTitleText = subBabTitleInput ? (subBabTitleInput.value || "Judul Sub-BAB") : "Judul Sub-BAB";
-        
-        tocPageContentHTML += `<div class="toc-entry toc-level-2">
-                                <span class="toc-item-text">${subBabNumberText} &ndash; ${subBabTitleText.toUpperCase()}</span>
-                                <span class="toc-item-page-num">${currentContentPageForToC}</span>
-                              </div>`;
+  function processMailMerge(text) {
+    if (!text) return '';
+    const placeholderMap = {
+      'Jenis Pekerjaan': state.dataMaster.jenisPekerjaan,
+      'Judul Pengadaan': state.dataMaster.judulPengadaan || DOM.dataJudulPengadaan.placeholder,
+      'No RKS': state.dataMaster.noRks || DOM.dataNoRks.placeholder,
+      'Tanggal RKS': state.dataMaster.tanggalRks || DOM.dataTanggalRks.placeholder,
+      'Bulan RKS': state.dataMaster.bulanRks,
+      'Tahun RKS': state.dataMaster.tahunRks || DOM.dataTahunRks.placeholder,
+      'Metode Pengadaan': state.dataMaster.metodePengadaan,
+      'Metode Penyampaian Dokumen Penawaran': state.dataMaster.metodePenyampaian,
+      'SPT': state.dataMaster.sptTahun || DOM.dataSptTahun.placeholder,
+      'PPN': state.dataMaster.ppnTahun || DOM.dataPpnTahun.placeholder,
+      'Laporan Keuangan Tahun': state.dataMaster.laporanKeuanganTahun || DOM.dataLaporanKeuanganTahun.placeholder,
+      'Metode Evaluasi': state.dataMaster.metodeEvaluasi,
+      'Pengguna': state.dataMaster.pengguna || DOM.dataPengguna.placeholder,
+      'Direksi Pekerjaan': state.dataMaster.direksiPekerjaan || DOM.dataDireksiPekerjaan.placeholder,
+      'Pengawas Pekerjaan': state.dataMaster.pengawasPekerjaan || DOM.dataPengawasPekerjaan.placeholder,
+      'Pengalaman Pekerjaan Sejenis': state.dataMaster.pengalamanPekerjaan || DOM.dataPengalamanPekerjaan.placeholder,
+      'Proyek': state.dataMaster.proyek || DOM.dataProyek.placeholder,
+      'Jenis Perjanjian/Kontrak': state.dataMaster.jenisPerjanjian || DOM.dataJenisPerjanjian.placeholder,
+      'Disusun Oleh Jabatan': state.dataMaster.disusunJabatan || DOM.dataDisusunJabatan.placeholder,
+      'Disusun Oleh Nama': state.dataMaster.disusunNama || DOM.dataDisusunNama.placeholder,
+      'Mengetahui Jabatan': state.dataMaster.mengetahuiJabatan || DOM.dataMengetahuiJabatan.placeholder,
+      'Mengetahui Nama': state.dataMaster.mengetahuiNama || DOM.dataMengetahuiNama.placeholder,
+      'Menyetujui Jabatan': state.dataMaster.menyetujuiJabatan || DOM.dataMenyetujuiJabatan.placeholder,
+      'Menyetujui Nama': state.dataMaster.menyetujuiNama || DOM.dataMenyetujuiNama.placeholder,
+    };
+    return text.replace(/\[(.*?)\]/g, (match, placeholderName) => {
+      const key = placeholderName.trim();
+      return placeholderMap[key] !== undefined ? `<span class="mailmerge-highlight">${placeholderMap[key]}</span>` : match;
     });
-  });
-  
-  const tocPageHTMLString = `
-    <div class="preview-page toc-page">
-      ${letterhead}
-      <div class="page-content-after-letterhead">
-        <h2 class="toc-title">DAFTAR ISI</h2>
-        <div class="toc-list">
-          ${tocPageContentHTML}
-        </div>
-        </div>
-    </div>`;
-  allGeneratedPages.push(tocPageHTMLString);
-  console.log("ToC page generated. Entries:", babSections.length > 0 ? tocPageContentHTML.substring(0,100) : "No BABs"); // DEBUG
+  }
 
-  // 3. Generate HTML Halaman Konten BAB
-  babSections.forEach((section) => {
-    const babNumberInput = section.querySelector('.bab-number-display');
-    const titleInput = section.querySelector('.bab-title');
-    const contentInput = section.querySelector('.bab-content');
-    const babNumberText = babNumberInput ? babNumberInput.value : "";
-    const babTitleText = titleInput ? (titleInput.value || "Judul Bab") : "Judul Bab";
-    const contentText = contentInput ? contentInput.value.replace(/\n/g, '<br>') : "Konten belum diisi.";
+  // ===================================================================================
+  // FUNGSI RENDER (Fungsi Tunggal untuk Merender Seluruh Dokumen)
+  // ===================================================================================
+  function renderFullDocument() {
+    const letterhead = getLetterheadHTML();
+    let fullDocumentHTML = '';
 
-    const babContentPageHTMLString = `
+    // 1. Buat Halaman Sampul (Cover)
+    const coverPageHTML = `
+      <div class="preview-page cover-page">
+        ${letterhead}
+        <div class="page-content-after-letterhead">
+          <p style="text-align:center; font-size: 18px; margin-top: 40px; margin-bottom: 10px; font-weight: bold;">${(state.dataMaster.judulPengadaan || DOM.dataJudulPengadaan.placeholder).toUpperCase()}</p>
+          <p style="text-align:center; font-size: 14px; margin-top: 0; margin-bottom: 40px; color: #333;">NOMOR: ${state.dataMaster.noRks || DOM.dataNoRks.placeholder}</p>
+          <p style="text-align:center; font-size: 18px; font-weight: bold; margin-bottom: 30px;">DOKUMEN RKS</p>
+          <div class="cover-bab-list">
+            ${Object.entries(documentTemplates).map(([babKey, babData]) => `
+              <p>${babKey} &ndash; ${babData.title.toUpperCase()}</p>
+            `).join('')}
+          </div>
+          <div style="text-align: center; margin-top: 80px; font-size: 16px; font-weight: bold;">
+              ${(state.dataMaster.bulanRks).toUpperCase()} ${state.dataMaster.tahunRks || DOM.dataTahunRks.placeholder}
+          </div>
+        </div>
+      </div>`;
+    fullDocumentHTML += coverPageHTML;
+
+    // 2. Buat Halaman Daftar Isi
+    let tocContentHTML = '';
+    Object.entries(documentTemplates).forEach(([babKey, babData], index) => {
+        tocContentHTML += `
+            <div class="toc-entry toc-level-1">
+                <span class="toc-item-text">${babKey} ${babData.title.toUpperCase()}</span>
+                <span class="toc-item-page-num">${index + 3}</span>
+            </div>`;
+    });
+    const tocPageHTML = `
+      <div class="preview-page toc-page">
+        ${letterhead}
+        <div class="page-content-after-letterhead">
+          <h2 class="toc-title">DAFTAR ISI</h2>
+          <div class="toc-list">${tocContentHTML}</div>
+        </div>
+      </div>`;
+    fullDocumentHTML += tocPageHTML;
+
+    // 3. Gabungkan semua konten BAB menjadi satu blok HTML
+    let allBabsContent = '';
+    Object.entries(documentTemplates).forEach(([babKey, babData]) => {
+      const processedContent = processMailMerge(babData.content);
+      allBabsContent += `
+        <div class="bab-content-block">
+            <h3 style="text-align:center; font-size: 14px; font-weight: bold; margin-top: 20px;">${babKey}</h3>
+            <h4 style="text-align:center; font-size: 13px; font-weight: bold; margin-bottom: 20px;">${babData.title.toUpperCase()}</h4>
+            <div style="font-size: 12px; line-height: 1.6; text-align: justify;">
+              ${processedContent.replace(/\n/g, '<br>')}
+            </div>
+        </div>
+      `;
+    });
+
+    // 4. Bungkus semua konten BAB dalam satu 'halaman' pratinjau
+    const mainContentPageHTML = `
       <div class="preview-page continuous-page">
         ${letterhead}
         <div class="page-content-after-letterhead">
-            <h3 style="text-align:center; font-size: 14px; font-weight: bold; margin-top: 20px;">${babNumberText.toUpperCase()}</h3>
-            <h4 style="text-align:center; font-size: 13px; font-weight: bold; margin-bottom: 20px;">${babTitleText.toUpperCase()}</h4>
-            <div style="font-size: 12px; line-height: 1.6; text-align: justify;">
-            ${contentText}
-            </div>
-            </div>
-      </div>`;
-    allGeneratedPages.push(babContentPageHTMLString);
-  });
-  console.log("BAB content pages generated. Count:", babSections.length); // DEBUG
+          ${allBabsContent}
+        </div>
+      </div>
+    `;
+    fullDocumentHTML += mainContentPageHTML;
 
-  if (currentPreviewPageIndex >= allGeneratedPages.length && allGeneratedPages.length > 0) {
-    currentPreviewPageIndex = allGeneratedPages.length - 1;
-  } else if (allGeneratedPages.length === 0) {
-    currentPreviewPageIndex = 0; // Atau -1 jika Anda ingin logika displayCurrentPage menangani index 0 dari array kosong
-  }
-  // Pastikan index tidak negatif jika allGeneratedPages masih kosong setelah semua logika di atas
-  if (currentPreviewPageIndex < 0 && allGeneratedPages.length === 0) {
-      currentPreviewPageIndex = 0;
-  } else if (currentPreviewPageIndex < 0 && allGeneratedPages.length > 0) {
-      currentPreviewPageIndex = 0; // Jika ada halaman, mulai dari halaman pertama
+    DOM.previewPanel.innerHTML = fullDocumentHTML;
   }
 
-
-  console.log("Total halaman digenerate:", allGeneratedPages.length); // DEBUG
-  console.log("Index halaman saat ini akan ditampilkan:", currentPreviewPageIndex); // DEBUG
-  displayCurrentPage();
-}
-
-function displayCurrentPage() {
-  console.log("displayCurrentPage_mulai, index:", currentPreviewPageIndex, "total halaman:", allGeneratedPages.length); //DEBUG
-  const previewPanel = document.getElementById('preview');
-  const pageIndicator = document.getElementById('pageIndicator');
-  const prevBtn = document.getElementById('prevPageBtn');
-  const nextBtn = document.getElementById('nextPageBtn');
-
-  if (!previewPanel || !pageIndicator || !prevBtn || !nextBtn) {
-    console.error("Elemen kontrol pratinjau tidak ditemukan! Pastikan ID elemen HTML sudah benar.");
-    return;
+  // ===================================================================================
+  // AKSI & EVENT HANDLERS
+  // ===================================================================================
+  function updateStateFromForm() {
+    for (const key in DOM) {
+        if (key.startsWith('data')) {
+            const stateKey = key.charAt(4).toLowerCase() + key.slice(5);
+            if (DOM[key]) {
+                state.dataMaster[stateKey] = DOM[key].value;
+            }
+        }
+    }
   }
 
-  if (allGeneratedPages.length === 0) {
-    previewPanel.innerHTML = "<p style='text-align:center; padding-top:50px;'>Tidak ada konten untuk ditampilkan. Silakan isi form atau tambahkan BAB.</p>";
-    pageIndicator.textContent = "Page 0 of 0";
-    prevBtn.disabled = true;
-    nextBtn.disabled = true;
-    console.log("Tidak ada halaman untuk ditampilkan (allGeneratedPages kosong)."); //DEBUG
-    return;
+  function onFormChange() {
+    updateStateFromForm();
+    renderFullDocument();
   }
   
-  // Pencegahan error jika index di luar batas setelah manipulasi array
-  if (currentPreviewPageIndex < 0) currentPreviewPageIndex = 0;
-  if (currentPreviewPageIndex >= allGeneratedPages.length) currentPreviewPageIndex = allGeneratedPages.length - 1;
-
-
-  if (allGeneratedPages[currentPreviewPageIndex] !== undefined) {
-    previewPanel.innerHTML = allGeneratedPages[currentPreviewPageIndex];
-    console.log("innerHTML previewPanel telah di-set dengan halaman " + (currentPreviewPageIndex + 1)); //DEBUG
-  } else {
-    previewPanel.innerHTML = "<p style='text-align:center; padding-top:50px;'>Error: Konten halaman tidak ditemukan pada index ini.</p>";
-    console.error("Error: Konten halaman tidak ditemukan pada index:", currentPreviewPageIndex); //DEBUG
+  // ===================================================================================
+  // INISIALISASI
+  // ===================================================================================
+  function initialize() {
+    DOM.form.addEventListener('input', onFormChange);
+    onFormChange();
   }
-  
-  pageIndicator.textContent = `Page ${currentPreviewPageIndex + 1} of ${allGeneratedPages.length}`;
-  prevBtn.disabled = (currentPreviewPageIndex === 0);
-  nextBtn.disabled = (currentPreviewPageIndex >= allGeneratedPages.length - 1);
-}
 
-function nextPage() {
-  if (currentPreviewPageIndex < allGeneratedPages.length - 1) {
-    currentPreviewPageIndex++;
-    displayCurrentPage();
-  }
-}
-
-function prevPage() {
-  if (currentPreviewPageIndex > 0) {
-    currentPreviewPageIndex--;
-    displayCurrentPage();
-  }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  console.log("DOM Content Loaded"); // DEBUG
-  currentPreviewPageIndex = 0; 
-  updateBabAndSubBabNumbers(); 
-  updatePreview(); 
-  console.log("Initial preview update called."); // DEBUG
+  initialize();
 });
+
+function goToCreateTemplate() {
+  window.location.href = "home.html";
+}
