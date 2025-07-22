@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DocTemp Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DocTemp Simple Home</title>
+  <link rel="stylesheet" href="style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
@@ -16,28 +15,30 @@
         <span>DocTemp</span>
       </div>
       <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
-      <a href="#"><i class="fas fa-file-alt"></i> Go Premium</a>
-      <a href="#"><i class="fas fa-cog"></i> More</a>
-      <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
     <div class="main home-main-new">
       <div class="main-header home-main-header-new">
         <h1>Resumes</h1>
-        <button onclick="goToCreateTemplate()">
-          <i class="fas fa-plus"></i> Create Template
-        </button>
       </div>
       <div class="cards home-cards-new">
-        <div class="card home-card-new" id="konsultansi-card"> 
-          <img src="/images/konsultasi-doc.png" alt="Konsultasi" />
+        <button class="card home-card-new" id="konsultansi-card" type="button"> 
+          <img src="Logo PLNE.png" alt="Konsultasi" />
           <p>Konsultasi</p>
-        </div>
+        </button>
         <div class="card home-card-new" id="konstruksi-card"> 
-          <img src="/images/konstruksi-doc.png" alt="Konstruksi" />
+          <img src="Logo PLNE.png" alt="Konstruksi" />
           <p>Konstruksi</p>
         </div>    
       </div>
     </div>
   </div>
+  <script>
+    document.getElementById('konsultansi-card').addEventListener('click', () => {
+      window.location.href = 'konsultansi.html';
+    });
+    document.getElementById('konstruksi-card').addEventListener('click', () => {
+      window.location.href = 'konstruksi.html';
+    });
+  </script>
 </body>
 </html>

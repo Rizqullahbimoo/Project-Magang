@@ -408,6 +408,6 @@ Mengacu pada Bab II Klausul 2.1.s.
   initialize();
 });
 
-function goToCreateTemplate() {
-  window.location.href = "home.html";
-}
+  function goToCreateTemplate() {
+    window.location.href = "home-simple.html";
+  }

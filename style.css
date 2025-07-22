@@ -129,12 +129,6 @@ body {
   background-color: #5a32a3;
 }
 
-.cards.home-cards-new {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-}
-
 .card.home-card-new {
   display: flex;
   flex-direction: column;
@@ -146,7 +140,18 @@ body {
   width: 220px; /* Adjust card width as needed */
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   text-align: center;
+  /* --- TAMBAHAN BARU --- */
+  cursor: pointer; /* Mengubah kursor menjadi tangan saat di atas elemen */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Menambahkan animasi yang mulus */
 }
+
+/* --- BLOK CSS BARU --- */
+/* Efek saat kursor berada di atas kartu */
+.card.home-card-new:hover {
+  transform: scale(1.05); /* Memperbesar kartu sebesar 5% */
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1); /* Membuat bayangan lebih menonjol */
+}
+
 
 .card.home-card-new img {
   width: 100%;
@@ -154,13 +159,6 @@ body {
   height: auto;
   border: 1px solid #ccc;
   margin-bottom: 15px;
-}
-
-.card.home-card-new p {
-  margin-top: 10px; /* Adjusted from original to match general card text */
-  font-weight: 600;
-  color: #343a40;
-  font-size: 16px;
 }
 
 
@@ -177,20 +175,23 @@ body {
   height: 60px;
 }
 
-.nav-left a {
+.nav-left a,
+.nav-left a.nav-button-home {
   text-decoration: none;
   color: white;
   font-weight: bold;
   display: flex;
   align-items: center;
-  background-color: #00bfff; /* Purple color same as download button */
+  background-color: #007bff; /* Blue background */
   padding: 8px 12px;
   border-radius: 5px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
-.nav-left a:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(111, 66, 193, 0.5);
+.nav-left a:hover,
+.nav-left a.nav-button-home:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.6);
 }
 .nav-center span {
   color: #333; /* Keep DocTemp text color unchanged */
