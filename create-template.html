@@ -18,19 +18,15 @@
         <span>DocTemp</span>
       </div>
       <div class="nav-right">
-        <button class="icon-button"><i class="fas fa-undo"></i></button>
-        <button class="icon-button"><i class="fas fa-redo"></i></button>
-        <select class="nav-select">
-          <option>ENG</option>
-          <option>ID</option>
-        </select>
-        <button class="nav-button-download">Download</button>
+        <button class="icon-button" id="undo-button" title="Undo"><i class="fas fa-undo"></i></button>
+        <button class="icon-button" id="redo-button" title="Redo"><i class="fas fa-redo"></i></button>
+        <!-- Language selection removed as per request -->
+        <button class="nav-button-download" id="download-button">Download</button>
       </div>
     </nav>
 
     <div class="editor-container">
       <div class="editor-form">
-        <!-- Pengguna hanya berinteraksi dengan bagian ini -->
         <div class="form-section">
           <h2 class="form-section-title">DATA MASTER</h2>
           
@@ -48,7 +44,40 @@
           <input type="text" id="data-no-rks" placeholder="00.RKS/P.00.03/PLNE01200/2024" />
 
           <label for="data-tanggal-rks">4. Tanggal RKS</label>
-          <input type="number" id="data-tanggal-rks" placeholder="12" />
+          <select id="data-tanggal-rks">
+            <option value="" disabled selected>Pilih Tanggal</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+          </select>
 
           <label for="data-bulan-rks">5. Bulan RKS</label>
           <select id="data-bulan-rks">
@@ -68,7 +97,7 @@
             <option>Penunjukan Langsung</option>
           </select>
 
-          <label for="data-metode-penyampaian">8. Metode Penyampaian Dokumen</option>
+          <label for="data-metode-penyampaian">8. Metode Penyampaian Dokumen</label>
           <select id="data-metode-penyampaian">
             <option selected>Satu Tahap Satu Sampul</option>
             <option>Satu Tahap Dua Sampul</option>
@@ -134,6 +163,22 @@
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- Download format selection popup modal -->
+  <div id="download-format-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Pilih Format Download</h3>
+      <button id="download-word" class="download-option">
+        <img src="https://cdn-icons-png.flaticon.com/512/888/888859.png" alt="Word Icon" style="height:20px; margin-right:8px; vertical-align:middle;" />
+        Word
+      </button>
+      <button id="download-pdf" class="download-option">
+        <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF Icon" style="height:20px; margin-right:8px; vertical-align:middle;" />
+        PDF
+      </button>
+      <button id="download-cancel">Batal</button>
     </div>
   </div>
 
