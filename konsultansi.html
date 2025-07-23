@@ -6,6 +6,10 @@
   <title>Create Template - DocTemp</title>
   <link rel="stylesheet" href="style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <script src="https://unpkg.com/html-docx-js/dist/html-docx.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
   <div class="page-container">
@@ -14,8 +18,8 @@
         <a href="home-simple.html"><i class="fas fa-home"></i> Home</a>
       </div>
       <div class="nav-center">
-        <img src="Logo PLNE.png" alt="PLN Logo" class="nav-logo"/>
-        <span>DocTemp</span>
+        <img src="asset/Logo PLNE.png" alt="PLN Logo" class="nav-logo"/>
+        <img src="asset/DocTemp Logo.png" alt="PLN DocTemp Logo" />
       </div>
       <div class="nav-right">
         <button class="icon-button" id="undo-button" title="Undo"><i class="fas fa-undo"></i></button>
@@ -167,15 +171,15 @@
   </div>
 
   <!-- Download format selection popup modal -->
-  <div id="download-format-modal" class="modal hidden">
+ <div id="download-format-modal" class="modal hidden">
     <div class="modal-content">
       <h3>Pilih Format Download</h3>
       <button id="download-word" class="download-option">
-        <img src="https://cdn-icons-png.flaticon.com/512/888/888859.png" alt="Word Icon" style="height:20px; margin-right:8px; vertical-align:middle;" />
-        Word
+        <img src="asset/word.png" alt="Word Icon" style="height:20px; margin-right:8px; vertical-align:middle;" />
+        Word (.docx)
       </button>
       <button id="download-pdf" class="download-option">
-        <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="PDF Icon" style="height:20px; margin-right:8px; vertical-align:middle;" />
+        <img src="asset/pdf.png" alt="PDF Icon" style="height:20px; margin-right:8px; vertical-align:middle;" />
         PDF
       </button>
       <button id="download-cancel">Batal</button>

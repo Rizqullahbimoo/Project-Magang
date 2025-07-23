@@ -21,7 +21,7 @@ body {
 
 .sidebar.home-sidebar-new {
   width: 260px;
-  background-color: #343a40; /* Dark grey sidebar */
+  background-color: #E1D8BF; /* Dark grey sidebar */
   padding: 25px 20px;
   display: flex;
   flex-direction: column;
@@ -73,7 +73,7 @@ body {
 }
 
 .sidebar.home-sidebar-new a.active {
-  color: #8a63d2; /* Purple for active link text and icon */
+  color: #ffffff; /* Purple for active link text and icon */
   font-weight: bold;
   background-color: transparent;
 }
@@ -85,7 +85,7 @@ body {
   top: 0;
   bottom: 0;
   width: 4px;
-  background-color: #8a63d2; /* Purple left border */
+  background-color: #ffffff; /* Purple left border */
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
@@ -111,7 +111,7 @@ body {
 }
 
 .main-header.home-main-header-new button {
-  background-color: #6f42c1; /* Purple button */
+  background-color: #ffffff; /* Purple button */
   color: white;
   padding: 12px 20px;
   border: none;
@@ -126,9 +126,18 @@ body {
   margin-right: 8px;
 }
 .main-header.home-main-header-new button:hover {
-  background-color: #5a32a3;
+  background-color: #ffffff;
 }
 
+/* --- KARTU-KARTU --- */
+/* Container yang membuat kartu berdampingan */
+.cards.home-cards-new {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px; /* Jarak antar kartu */
+}
+
+/* Gaya untuk setiap kartu individual */
 .card.home-card-new {
   display: flex;
   flex-direction: column;
@@ -137,21 +146,22 @@ body {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 20px;
-  width: 220px; /* Adjust card width as needed */
+  width: 220px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   text-align: center;
-  /* --- TAMBAHAN BARU --- */
-  cursor: pointer; /* Mengubah kursor menjadi tangan saat di atas elemen */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Menambahkan animasi yang mulus */
+  font-family: 'Arial', sans-serif; /* Pastikan font konsisten */
+  font-size: 16px; /* Pastikan ukuran font konsisten */
+
+  /* Ini bagian penting untuk efek interaktif */
+  cursor: pointer; /* Mengubah kursor menjadi tangan */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi yang mulus */
 }
 
-/* --- BLOK CSS BARU --- */
 /* Efek saat kursor berada di atas kartu */
 .card.home-card-new:hover {
   transform: scale(1.05); /* Memperbesar kartu sebesar 5% */
   box-shadow: 0 6px 12px rgba(0,0,0,0.1); /* Membuat bayangan lebih menonjol */
 }
-
 
 .card.home-card-new img {
   width: 100%;
@@ -161,6 +171,12 @@ body {
   margin-bottom: 15px;
 }
 
+.card.home-card-new p {
+  margin-top: 10px;
+  font-weight: 600;
+  color: #343a40;
+  font-size: 16px;
+}
 
 /* === Styles for Create Template Page (image_f794fd.png & letterhead/A4 features) === */
 
@@ -182,7 +198,7 @@ body {
   font-weight: bold;
   display: flex;
   align-items: center;
-  background-color: #007bff; /* Blue background */
+  background-color: #E1D8BF; /* Changed from #00bfff blue to yellow */
   padding: 8px 12px;
   border-radius: 5px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -191,7 +207,7 @@ body {
 .nav-left a:hover,
 .nav-left a.nav-button-home:hover {
   transform: scale(1.1);
-  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.6);
+  box-shadow: 0 6px 12px rgba(225, 216, 191, 0.6); /* Adjusted shadow to yellow */
 }
 .nav-center span {
   color: #333; /* Keep DocTemp text color unchanged */
@@ -213,16 +229,16 @@ body {
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #00bfff;
+  background-color: #E1D8BF; /* Changed from #00bfff blue to yellow */
   cursor: pointer;
 }
 .nav-right .icon-button {
     padding: 8px;
 }
 .nav-button-download {
-  background-color: #6f42c1; /* Purple background */
-  color: white;
-  border-color: #6f42c1;
+  background-color: #E1D8BF; /* Changed from purple to yellow */
+  color: #333; /* Dark text for contrast */
+  border-color: #E1D8BF;
   cursor: pointer;
   padding: 8px 16px;
   border-radius: 5px;
@@ -233,7 +249,7 @@ body {
 }
 .nav-button-download:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(111, 66, 193, 0.5);
+  box-shadow: 0 4px 8px rgba(225, 216, 191, 0.5); /* Yellow shadow */
 }
 
 /* Popup modal centered rectangular box */
@@ -420,6 +436,33 @@ body {
     /* display: none; JS handles initial display */
 }
 
+/* Aturan baru untuk memberitahu PDF renderer di mana harus memulai halaman baru */
+.bab-title-for-break {
+  page-break-before: always; /* KUNCI UNTUK PAGINATION OTOMATIS */
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 0; /* Pastikan tidak ada margin atas yang aneh */
+}
+
+/* Mengatur agar judul pertama (BAB I) tidak mendapat jeda halaman di atasnya */
+.bab-content-section:first-child .bab-title-for-break {
+  page-break-before: auto;
+}
+
+.bab-subtitle {
+  text-align: center;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.bab-text-content {
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: justify;
+}
+
 .editor-form .bab-content { /* Textarea for BAB content */
   /* width: calc(100% - 22px); /* Already defined generally for textarea */
   min-height: 60px;
@@ -486,6 +529,11 @@ body {
   min-height: auto;
   box-shadow: none;
   margin: 0;
+}
+
+.preview-page * {
+  max-width: 100%;
+  word-wrap: break-word; /* Memaksa teks panjang untuk pindah baris */
 }
 
 .preview-panel .preview-page { /* Each A4 sheet */

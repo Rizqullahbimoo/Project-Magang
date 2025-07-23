@@ -304,13 +304,13 @@ Mengacu pada Bab II Klausul 2.1.s.
   }
 
   // ===================================================================================
-  // FUNGSI RENDER (Fungsi Tunggal untuk Merender Seluruh Dokumen)
+  // FUNGSI RENDER (VERSI BARU DENGAN HALAMAN TERPISAH)
   // ===================================================================================
   function renderFullDocument() {
     const letterhead = getLetterheadHTML();
     let fullDocumentHTML = '';
 
-    // 1. Buat Halaman Sampul (Cover)
+    // 1. Buat Halaman Sampul (tetap sama)
     const coverPageHTML = `
       <div class="preview-page cover-page">
         ${letterhead}
@@ -330,7 +330,7 @@ Mengacu pada Bab II Klausul 2.1.s.
       </div>`;
     fullDocumentHTML += coverPageHTML;
 
-    // 2. Buat Halaman Daftar Isi
+    // 2. Buat Halaman Daftar Isi (tetap sama)
     let tocContentHTML = '';
     Object.entries(documentTemplates).forEach(([babKey, babData], index) => {
         tocContentHTML += `
@@ -349,34 +349,35 @@ Mengacu pada Bab II Klausul 2.1.s.
       </div>`;
     fullDocumentHTML += tocPageHTML;
 
-    // 3. Gabungkan semua konten BAB menjadi satu blok HTML
-    let allBabsContent = '';
+    // 3. Gabungkan SEMUA BAB ke dalam satu alur konten yang berkelanjutan
+    let mainContentHTML = '';
     Object.entries(documentTemplates).forEach(([babKey, babData]) => {
       const processedContent = processMailMerge(babData.content);
-      allBabsContent += `
-        <div class="bab-content-block">
-            <h3 style="text-align:center; font-size: 14px; font-weight: bold; margin-top: 20px;">${babKey}</h3>
-            <h4 style="text-align:center; font-size: 13px; font-weight: bold; margin-bottom: 20px;">${babData.title.toUpperCase()}</h4>
-            <div style="font-size: 12px; line-height: 1.6; text-align: justify;">
+      // Setiap BAB kini menjadi bagian dari satu blok besar
+      mainContentHTML += `
+        <div class="bab-content-section">
+            <h3 class="bab-title-for-break">${babKey}</h3>
+            <h4 class="bab-subtitle">${babData.title.toUpperCase()}</h4>
+            <div class="bab-text-content">
               ${processedContent.replace(/\n/g, '<br>')}
             </div>
         </div>
       `;
     });
 
-    // 4. Bungkus semua konten BAB dalam satu 'halaman' pratinjau
-    const mainContentPageHTML = `
-      <div class="preview-page continuous-page">
-        ${letterhead}
-        <div class="page-content-after-letterhead">
-          ${allBabsContent}
+    // Bungkus alur konten utama dalam satu halaman pratinjau
+    const mainContentContainer = `
+        <div class="preview-page continuous-content-page">
+            ${letterhead}
+            <div class="page-content-after-letterhead">
+                ${mainContentHTML}
+            </div>
         </div>
-      </div>
     `;
-    fullDocumentHTML += mainContentPageHTML;
+    fullDocumentHTML += mainContentContainer;
 
     DOM.previewPanel.innerHTML = fullDocumentHTML;
-  }
+}
 
   // ===================================================================================
   // AKSI & EVENT HANDLERS
@@ -411,3 +412,112 @@ Mengacu pada Bab II Klausul 2.1.s.
   function goToCreateTemplate() {
     window.location.href = "home-simple.html";
   }
+
+  // --- KODE UNTUK FUNGSI POP-UP DOWNLOAD ---
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // Pastikan elemen-elemen ada di halaman sebelum menambahkan listener
+    const downloadButton = document.getElementById('download-button');
+    const downloadModal = document.getElementById('download-format-modal');
+    const cancelButton = document.getElementById('download-cancel');
+    const wordOption = document.getElementById('download-word');
+    const pdfOption = document.getElementById('download-pdf');
+
+    // Cek jika elemen ada untuk menghindari error di halaman lain
+    if (downloadButton && downloadModal && cancelButton) {
+
+        // 1. Tampilkan pop-up saat tombol "Download" utama diklik
+        downloadButton.addEventListener('click', () => {
+            downloadModal.classList.remove('hidden');
+        });
+
+        // 2. Sembunyikan pop-up saat tombol "Batal" diklik
+        cancelButton.addEventListener('click', () => {
+            downloadModal.classList.add('hidden');
+        });
+
+        // Fungsi untuk menyembunyikan pop-up (bisa dipanggil setelah memilih format)
+        const hideModal = () => {
+            downloadModal.classList.add('hidden');
+        }
+
+       // Ganti fungsi lama dengan yang ini
+        wordOption.addEventListener('click', () => {
+            console.log('Memulai proses download Word...');
+
+            // 1. Ambil seluruh konten HTML dari panel pratinjau
+            const previewContent = document.getElementById('preview').innerHTML;
+            
+            // 2. Bungkus konten dengan struktur HTML dasar agar valid
+            const fullHtml = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Dokumen RKS</title>
+                    <style>
+                        /* Tambahkan style sederhana untuk memastikan tata letak di Word mirip */
+                        body { font-family: 'Times New Roman', serif; font-size: 12pt; }
+                        p, h1, h2, h3, h4 { margin: 0; padding: 0; }
+                        .letterhead-text .company-name { border-bottom: 2px solid #000; }
+                        .preview-page { page-break-after: always; } /* Memberi jeda halaman di Word */
+                    </style>
+                </head>
+                <body>
+                    ${previewContent}
+                </body>
+                </html>
+            `;
+
+            // 3. Gunakan library html-docx-js untuk mengubah HTML menjadi format Word (Blob)
+            const fileBlob = htmlDocx.asBlob(fullHtml);
+
+            // 4. Buat link download palsu untuk memicu unduhan di browser
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(fileBlob);
+            
+            // Ambil judul pengadaan untuk nama file, atau gunakan nama default
+            const judul = document.getElementById('data-judul-pengadaan').value || 'Dokumen RKS';
+            link.download = `${judul}.docx`; // Nama file yang akan diunduh
+            
+            // Tambahkan link ke dokumen, klik, lalu hapus lagi
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Sembunyikan pop-up setelah proses selesai
+            hideModal();
+        });
+
+        pdfOption.addEventListener('click', () => {
+    console.log('Memulai proses download PDF...');
+
+    // Arahkan ke seluruh panel pratinjau. html2pdf akan membaca aturan CSS.
+    const element = document.getElementById('preview');
+
+    const judul = document.getElementById('data-judul-pengadaan').value || 'Dokumen RKS';
+    const filename = `${judul}.pdf`;
+
+    const opt = {
+      margin:       [20, 15, 20, 15],
+      filename:     filename,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true },
+      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      // AKTIFKAN MODE PAGE BREAK OTOMATIS BERDASARKAN CSS
+      pagebreak:    { mode: ['css', 'legacy'] }
+    };
+
+    html2pdf().set(opt).from(element).save();
+
+    hideModal();
+});
+        
+        // 3. Sembunyikan pop-up jika pengguna mengklik di luar area konten
+        downloadModal.addEventListener('click', (event) => {
+            if (event.target === downloadModal) {
+                hideModal();
+            }
+        });
+    }
+});
