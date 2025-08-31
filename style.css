@@ -1,831 +1,472 @@
-/* General body and page container */
-body {
-  margin: 0;
-  font-family: 'Arial', sans-serif;
-  background-color: #f0f2f5;
-  color: #333;
+/* ==========================================================================
+   1. Konfigurasi Global & Variabel CSS
+   ========================================================================== */
+
+:root {
+  /* Palet Warna Utama */
+  --color-primary: #e4d8b4; /* Warna kuning utama untuk tombol, sidebar, dll. */
+  --color-primary-dark: #d8cca3; /* Versi lebih gelap untuk hover */
+  --color-secondary: #8A9A5B; /* Warna Aksen Hijau Zaitun */
+  --color-secondary-dark: #6e7a48;
+  --color-text-dark: #333;
+  --color-text-light: #f8f9fa;
+  --color-background-light: #f0f2f5;
+  --color-background-white: #ffffff;
+  --color-border: #e0e0e0;
+
+  /* Tipografi */
+  --font-family-sans: 'Arial', sans-serif;
+
+  /* Lain-lain */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --box-shadow-light: 0 2px 4px rgba(0,0,0,0.05);
+  --box-shadow-medium: 0 6px 12px rgba(0,0,0,0.1);
 }
 
-.page-container { /* Used by create-template.html */
+/* Reset Dasar & Gaya Global */
+body {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  background-color: var(--color-background-light);
+  color: var(--color-text-dark);
+  height: 100vh;
+  overflow: hidden; /* Mencegah scroll di level body */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   2. Layout Utama (Digunakan di semua halaman)
+   ========================================================================== */
+
+.page-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
-/* === Styles for Home Page (image_f64058.png) === */
-.container.home-layout-new {
+.home-layout-new {
   display: flex;
   height: 100vh;
-  background-color: #FFFFFF;
 }
 
-.sidebar.home-sidebar-new {
-  width: 260px;
-  background-color: #E1D8BF; /* Dark grey sidebar */
+/* ==========================================================================
+   3. Komponen yang Dapat Digunakan Kembali (Tombol, Kartu, Form)
+   ========================================================================== */
+
+/* Gaya Dasar untuk Tombol */
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btn:hover {
+  transform: scale(1.08);
+  box-shadow: var(--box-shadow-medium);
+}
+
+/* Variasi Tombol */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-dark);
+}
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-text-light);
+}
+.btn-secondary:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+.btn-icon {
+  padding: 8px;
+}
+
+/* Gaya Dasar untuk Form Input */
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  margin-bottom: 15px;
+  background-color: #f9fafb;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  border-color: var(--color-secondary);
+  background-color: var(--color-background-white);
+  outline: none;
+}
+
+/* ==========================================================================
+   4. Gaya Spesifik Halaman Home
+   ========================================================================== */
+
+.home-sidebar-new {
+  width: 320px;
+  background-color: var(--color-primary);
   padding: 25px 20px;
   display: flex;
   flex-direction: column;
-  color: #f8f9fa;
 }
 
-.sidebar .logo.home-logo-new {
+.home-logo-new {
   display: flex;
-  flex-direction: row;
   align-items: center;
+  gap: 10px;
   margin-bottom: 40px;
   padding-left: 10px;
 }
 
-.sidebar .logo.home-logo-new img {
-  height: 40px; /* Adjust to your new logo's aspect ratio */
-  /* width: auto; */
-  margin-right: 10px;
+.home-logo-new img {
+  height: 40px;
 }
 
-/* If you have a separate span for "DocTemp" text in the new logo */
-.sidebar .logo.home-logo-new span {
-  font-size: 18px;
+.logo-text {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 26px;
   font-weight: bold;
-  color: #f8f9fa; /* Light text color for DocTemp */
+  color: #8A9A5B;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+  line-height: 1;
 }
 
-.sidebar.home-sidebar-new a {
+.home-sidebar-new a {
   display: flex;
   align-items: center;
   margin: 10px 0;
   padding: 12px 15px;
-  color: #adb5bd; /* Light grey text for nav links */
+  color: #ffffff;
   text-decoration: none;
-  font-weight: 500;
-  border-radius: 5px;
+  border-radius: var(--border-radius-sm);
   position: relative;
 }
-
-.sidebar.home-sidebar-new a i {
-  margin-right: 12px;
-  width: 20px;
-  text-align: center;
+.home-sidebar-new a:hover {
+  background-color: rgba(0,0,0,0.1);
 }
-
-.sidebar.home-sidebar-new a:hover {
-  background-color: #495057;
-  color: #ffffff;
-}
-
-.sidebar.home-sidebar-new a.active {
-  color: #ffffff; /* Purple for active link text and icon */
+.home-sidebar-new a.active {
   font-weight: bold;
-  background-color: transparent;
 }
-
-.sidebar.home-sidebar-new a.active::before {
+.home-sidebar-new a.active::before {
   content: "";
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
   width: 4px;
-  background-color: #ffffff; /* Purple left border */
+  background-color: var(--color-secondary);
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
+.home-sidebar-new a i {
+  margin-right: 12px;
+  width: 20px;
+  text-align: center;
+}
 
-.main.home-main-new {
+.home-main-new {
   flex: 1;
   padding: 40px;
-  background-color: #f8f9fa; /* Light background for main content area */
+  background-color: #f8f9fa;
   overflow-y: auto;
 }
 
-.main-header.home-main-header-new {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.main-header.home-main-header-new h1 {
+.home-main-header-new h1 {
   font-size: 28px;
-  color: #343a40;
-  margin: 0;
+  color: var(--color-text-dark);
+  margin: 0 0 30px 0;
 }
 
-.main-header.home-main-header-new button {
-  background-color: #ffffff; /* Purple button */
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 14px;
-  display: inline-flex;
-  align-items: center;
-}
-.main-header.home-main-header-new button i {
-  margin-right: 8px;
-}
-.main-header.home-main-header-new button:hover {
-  background-color: #ffffff;
-}
-
-/* --- KARTU-KARTU --- */
-/* Container yang membuat kartu berdampingan */
-.cards.home-cards-new {
+.home-cards-new {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px; /* Jarak antar kartu */
+  gap: 30px;
 }
 
-/* Gaya untuk setiap kartu individual */
-.card.home-card-new {
+.home-card-new {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  justify-content: flex-start;
+  background-color: var(--color-background-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
   padding: 20px;
-  width: 220px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  width: 240px;
+  height: 250px;
+  box-shadow: var(--box-shadow-light);
   text-align: center;
-  font-family: 'Arial', sans-serif; /* Pastikan font konsisten */
-  font-size: 16px; /* Pastikan ukuran font konsisten */
-
-  /* Ini bagian penting untuk efek interaktif */
-  cursor: pointer; /* Mengubah kursor menjadi tangan */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi yang mulus */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
-/* Efek saat kursor berada di atas kartu */
-.card.home-card-new:hover {
-  transform: scale(1.05); /* Memperbesar kartu sebesar 5% */
-  box-shadow: 0 6px 12px rgba(0,0,0,0.1); /* Membuat bayangan lebih menonjol */
+.home-card-new:hover {
+  transform: scale(1.05);
+  box-shadow: var(--box-shadow-medium);
 }
-
-.card.home-card-new img {
+.home-card-new img {
   width: 100%;
-  max-width: 180px;
-  height: auto;
+  height: 150px;
+  object-fit: cover;
   border: 1px solid #ccc;
   margin-bottom: 15px;
+  border-radius: var(--border-radius-sm);
 }
-
-.card.home-card-new p {
-  margin-top: 10px;
+.home-card-new p {
+  margin: 10px 0 0 0;
   font-weight: 600;
-  color: #343a40;
   font-size: 16px;
+  color: var(--color-text-dark);
 }
 
-/* === Styles for Create Template Page (image_f794fd.png & letterhead/A4 features) === */
+/* ==========================================================================
+   5. Gaya Spesifik Halaman Editor (Konsultansi & Konstruksi)
+   ========================================================================== */
 
-/* Top Navigation for create-template.html */
+/* Navigasi Atas */
 .top-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #ffffff;
+  background-color: var(--color-background-white);
   padding: 10px 20px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--color-border);
   height: 60px;
-}
-
-.nav-left a,
-.nav-left a.nav-button-home {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  background-color: #E1D8BF; /* Changed from #00bfff blue to yellow */
-  padding: 8px 12px;
-  border-radius: 5px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-}
-.nav-left a:hover,
-.nav-left a.nav-button-home:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 12px rgba(225, 216, 191, 0.6); /* Adjusted shadow to yellow */
-}
-.nav-center span {
-  color: #333; /* Keep DocTemp text color unchanged */
-}
-.nav-left i {
-  margin-right: 8px;
-}
-.nav-logo { /* Used in create-template.html top-nav */
-  height: 30px;
-  margin-right: 8px;
+  flex-shrink: 0;
 }
 .nav-center {
   display: flex;
   align-items: center;
-  font-size: 20px;
+  gap: 8px;
 }
-.nav-right button, .nav-right select {
-  margin-left: 10px;
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #E1D8BF; /* Changed from #00bfff blue to yellow */
-  cursor: pointer;
+.nav-logo {
+  height: 30px;
 }
-.nav-right .icon-button {
-    padding: 8px;
-}
-.nav-button-download {
-  background-color: #E1D8BF; /* Changed from purple to yellow */
-  color: #333; /* Dark text for contrast */
-  border-color: #E1D8BF;
-  cursor: pointer;
-  padding: 8px 16px;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 14px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: inline-block; /* Always visible */
-}
-.nav-button-download:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(225, 216, 191, 0.5); /* Yellow shadow */
-}
-
-/* Popup modal centered rectangular box */
-#download-format-modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-  padding: 20px 30px;
-  z-index: 1000;
-  width: 320px;
+.nav-right {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#download-format-modal.hidden {
-  display: none !important;
-}
-
-#download-format-modal .modal-content {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-#download-format-modal h3 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-#download-format-modal button.download-option {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 10px;
-  padding: 10px 0;
-  font-size: 16px;
+}
+
+/* Gaya untuk Tombol Navigasi Atas */
+.nav-left a,
+.nav-right button {
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: var(--border-radius-sm);
   font-weight: bold;
-  border: none;
-  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--color-primary);
+  color: var(--color-text-dark);
+  border: 1px solid #c9bf9e;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
   cursor: pointer;
-  background-color: #00bfff;
-  color: white;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-#download-format-modal button.download-option:hover {
-  background-color: #00bfff;
-  transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(111, 66, 193, 0.5);
+.nav-left a:hover,
+.nav-right button:hover {
+  transform: scale(1.1);
+  box-shadow: var(--box-shadow-medium);
+  z-index: 10;
+  position: relative;
+  background-color: var(--color-primary-dark);
 }
 
-#download-format-modal #download-cancel {
-  width: 100%;
-  padding: 10px 0;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #ccc;
-  color: #333;
-  transition: background-color 0.3s ease;
+.nav-right .icon-button {
+  padding: 8px 10px;
+  gap: 0;
 }
 
-#download-format-modal #download-cancel:hover {
-  background-color: #bbb;
-}
-
-/* Editor Container for create-template.html */
-.editor-container { /* Main wrapper for editor and preview panel */
+/* Layout Editor */
+.editor-container {
   display: flex;
   flex-grow: 1;
-  padding: 0px;
-  gap: 0px;
-  background-color: #f8f9fa;
   overflow: hidden;
 }
 
-.editor-form { /* Left panel in create-template.html */
+/* Panel Form Kiri */
+.editor-form {
   flex: 0 0 400px;
-  background: #ffffff;
+  background: var(--color-background-white);
   padding: 25px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
   overflow-y: auto;
-  border-right: 1px solid #e0e0e0;
+  border-right: 1px solid var(--color-border);
 }
 
-.form-section {
-  margin-bottom: 20px;
+/* Gaya untuk Form Grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
 }
 
-.form-section-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  margin-top: 0;
-  margin-bottom: 20px;
-  text-transform: uppercase;
+.form-group {
+    display: flex;
+    flex-direction: column;
 }
 
-.editor-form label {
+.form-group label {
   display: block;
   margin-bottom: 5px;
   font-size: 13px;
-  color: #000000; /* Changed from #555 to black */
-  font-weight: normal;
+  color: #555;
+  font-weight: bold;
 }
 
-.editor-form input[type="text"],
-.editor-form textarea,
-.editor-form select {
-  width: calc(100% - 22px); /* Assumes 10px padding + 1px border each side */
-  padding: 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  font-size: 14px;
-  margin-bottom: 15px;
-  background-color: #f9fafb;
-  box-sizing: border-box; /* Added for consistency */
-}
-.editor-form input[type="text"]:focus,
-.editor-form textarea:focus,
-.editor-form select:focus {
-    border-color: #7c3aed;
-    background-color: #fff;
-    outline: none;
+.form-group .form-input,
+.form-group .form-select {
+    margin-bottom: 0;
 }
 
-/* Daftar Isi (BAB) Styling in editor form */
-#bab-container {
+.form-section-title, .form-subsection-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--color-text-dark);
+  margin: 0 0 20px 0;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 10px;
+}
+
+.form-subsection-title {
+    margin-top: 30px;
+    border-bottom: none;
+}
+
+/* Panel Pratinjau Kanan */
+.preview-section {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  background: var(--color-background-light);
+  /* overflow: hidden; <-- DIHAPUS untuk memperbaiki scroll */
 }
 
-.bab-section {
-  padding: 0;
-  border: none;
-  margin-bottom: 0;
-}
-
-.bab-row { /* For BAB number and BAB title inputs */
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.bab-row .bab-number-display { /* BAB I, BAB II etc. input */
-  flex: 0 0 70px;
-  padding: 10px;
-  background-color: #e9ecef;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 14px;
-  margin-bottom: 0;
-}
-
-.bab-row .bab-title { /* Judul Bab input */
-  flex-grow: 1;
-  margin-bottom: 0;
-  background-color: #fff; /* Ensure it's white if a general input style is different */
-}
-.bab-row .remove-bab-button {
-    background: transparent;
-    border: none;
-    color: #dc3545;
-    font-size: 1.2em;
-    cursor: pointer;
-    padding: 5px;
-    /* display: none; JS handles initial display */
-}
-
-/* Aturan baru untuk memberitahu PDF renderer di mana harus memulai halaman baru */
-.bab-title-for-break {
-  page-break-before: always; /* KUNCI UNTUK PAGINATION OTOMATIS */
-  text-align: center;
-  font-size: 14px;
-  font-weight: bold;
-  margin-top: 0; /* Pastikan tidak ada margin atas yang aneh */
-}
-
-/* Mengatur agar judul pertama (BAB I) tidak mendapat jeda halaman di atasnya */
-.bab-content-section:first-child .bab-title-for-break {
-  page-break-before: auto;
-}
-
-.bab-subtitle {
-  text-align: center;
-  font-size: 13px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.bab-text-content {
-  font-size: 12px;
-  line-height: 1.6;
-  text-align: justify;
-}
-
-.editor-form .bab-content { /* Textarea for BAB content */
-  /* width: calc(100% - 22px); /* Already defined generally for textarea */
-  min-height: 60px;
-  margin-top: 0px;
-  background-color: #fff;
-}
-
-.add-button { /* '+' button for adding BABs or Objectives */
-  background-color: #e9ecef;
-  color: #495057;
-  border: 1px dashed #ced4da;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
-  align-self: flex-start;
-}
-.add-button:hover {
-  background-color: #d1d5db;
-}
-
-/* Save Button in editor form */
-.save-button-container {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: auto; /* Pushes to bottom of flex column */
-    padding-top: 20px;
-}
-.main-action-button.save-button { /* Targeting the save button specifically if it has both classes */
-  background-color: #6f42c1;
-  color: white;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 15px;
-  text-transform: uppercase;
-}
-.main-action-button.save-button:hover {
-  background-color: #5a32a3;
-}
-
-
-/* Preview Panel (Right panel in create-template.html) & A4 Page Styling */
 .preview-panel {
-  flex: 1;
-  background: #e9ecef;
+  flex-grow: 1;
   padding: 20px;
-  overflow-y: auto;
-  display: block; /* Changed from flex to allow normal block scrolling of A4 pages */
+  overflow-y: auto; /* Aturan ini sekarang akan berfungsi */
 }
 
-.preview-panel .document-page-container {
-  background: transparent;
-  padding: 0;
-  width: auto;
-  max-width: none;
-  min-height: auto;
-  box-shadow: none;
-  margin: 0;
+
+/* ==========================================================================
+   6. Gaya Spesifik Pratinjau Dokumen (Kertas A4)
+   ========================================================================== */
+
+.preview-page {
+  background: white;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 20mm 15mm;
+  margin: 0 auto 20px auto;
+  box-shadow: var(--box-shadow-medium);
+  box-sizing: border-box;
+  position: relative;
+  color: #000;
+  font-size: 12pt;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .preview-page * {
   max-width: 100%;
-  word-wrap: break-word; /* Memaksa teks panjang untuk pindah baris */
+  word-wrap: break-word;
 }
 
-.preview-panel .preview-page { /* Each A4 sheet */
-  background: white;
-  width: 210mm;
-  min-height: 297mm;
-  padding: 20mm 15mm; /* Page margins: Top/Bottom 20mm, Left/Right 15mm */
-  margin: 20px auto;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  box-sizing: border-box;
-  position: relative; /* For absolute positioning within if needed */
-}
+/* Kop Surat */
+.letterhead-container { width: 100%; }
+.letterhead-top-border { height: 5px; background-color: #00A2E8; }
+.letterhead-content { display: flex; align-items: flex-start; padding: 15px 0; }
+.letterhead-logo { margin-right: 20px; }
+.letterhead-logo img { height: 50px; }
+.letterhead-text .company-name { font-size: 16px; font-weight: bold; margin: 0 0 5px 0; padding-bottom: 2px; border-bottom: 2px solid #000; display: inline-block; }
+.letterhead-text .address { font-size: 10px; margin: 0; line-height: 1.4; }
+.page-content-after-letterhead { padding-top: 10mm; }
 
-.preview-panel .preview-page:not(:first-child) {
-    border-top: none; /* Remove old separator */
-    /* Margin between pages handled by .preview-page's own margin */
-}
+/* Konten Dokumen */
+.cover-page p, .toc-title, .bab-title-for-break, .bab-subtitle { text-align: center; font-weight: bold; }
+.cover-page p { font-size: 18px; margin-bottom: 10px; }
+.cover-bab-list p { font-size: 14px; font-weight: normal; text-align: left; margin: 5px 0 5px 20%;}
+.toc-title { font-size: 18px; margin-bottom: 25px; }
+.toc-entry { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 12px; }
+.bab-title-for-break { page-break-before: always; font-size: 14px; }
+.bab-content-section:first-child .bab-title-for-break { page-break-before: auto; }
+.bab-subtitle { font-size: 13px; margin-bottom: 20px; }
+.bab-text-content { line-height: 1.6; text-align: justify; }
 
-/* Letterhead Styling (inside each .preview-page) */
-.letterhead-container {
-  width: 100%;
-}
-
-.letterhead-top-border {
-  height: 5px;
-  background-color: #00A2E8; /* Blue top border */
-  width: 100%;
-}
-
-.letterhead-content {
-  display: flex;
-  align-items: flex-start;
-  padding: 15px 0px; /* Padding within the letterhead content area */
-}
-
-.letterhead-logo {
-  flex: 0 0 auto;
-  margin-right: 20px;
-}
-
-.letterhead-logo img {
-  height: 50px;
-  display: block;
-}
-
-.letterhead-text {
-  flex-grow: 1;
-  text-align: left;
-}
-
-.letterhead-text .company-name {
-  font-size: 16px;
+/* Highlight untuk Mail Merge */
+.mailmerge-highlight {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 1px 3px;
+  border-radius: 3px;
   font-weight: bold;
-  color: #000;
-  margin: 0 0 5px 0;
-  padding-bottom: 2px;
-  border-bottom: 2px solid #000; /* Underline for company name */
-  display: inline-block;
 }
 
-.letterhead-text .address {
-  font-size: 10px;
-  color: #333;
-  margin: 0;
-  line-height: 1.4;
-}
+/* ==========================================================================
+   7. Modal & Pop-up
+   ========================================================================== */
 
-.page-content-after-letterhead {
-  padding-top: 10mm; /* Space between letterhead and main page content */
-}
-
-.preview-panel .cover-page .page-content-after-letterhead {
-    padding-top: 5mm; /* Less space on cover page if needed */
-}
-
-.preview-panel .continuous-page .page-content-after-letterhead h3 {
-    margin-top: 0; /* Adjust heading margin after letterhead */
-}
-
-/* Preview Footer Toolbar (below editor-container) */
-.preview-footer-toolbar {
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
   display: flex;
-  justify-content: center;
   align-items: center;
-  background-color: #343a40;
-  padding: 10px 20px;
-  color: white;
-  height: 50px;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.modal.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.modal-content {
+  background: var(--color-background-white);
+  padding: 25px 30px;
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  width: 320px;
+  display: flex;
+  flex-direction: column;
   gap: 15px;
-}
-.preview-footer-toolbar button,
-.preview-footer-toolbar select {
-  background: #495057;
-  color: white;
-  border: 1px solid #6c757d;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.preview-footer-toolbar button i {
-  margin-right: 5px;
-}
-
-/* Utility */
-.hidden {
-  display: none !important;
-}
-
-/* ... (CSS Anda yang sudah ada) ... */
-
-/* Styling untuk Halaman Daftar Isi */
-.preview-page.toc-page .toc-title {
-  text-align: center;
-  font-size: 18px; /* Sesuaikan dengan style judul lainnya */
-  font-weight: bold;
-  margin-top: 20px; /* Jarak dari kop surat atau atas konten */
-  margin-bottom: 25px;
-  text-transform: uppercase;
-}
-
-.preview-page.toc-page .toc-list {
-  margin-left: 10mm; /* Indentasi untuk daftar isi */
-  margin-right: 10mm;
-}
-
-.toc-entry {
-  display: flex;
-  justify-content: space-between; /* Judul di kiri, nomor halaman di kanan */
-  align-items: baseline;
-  margin-bottom: 10px; /* Jarak antar entri */
-  font-size: 12px; /* Ukuran font entri daftar isi */
-  line-height: 1.6;
-}
-
-.toc-entry .toc-item-text {
-  text-align: left;
-  /* Untuk efek titik-titik (lebih advance, bisa ditambahkan nanti jika perlu) */
-  /* flex-grow: 1; */
-}
-
-.toc-entry .toc-item-page-num {
-  text-align: right;
-  font-weight: normal; /* Atau bold jika ingin nomor halaman tebal */
-  /* flex-shrink: 0; */
-  /* padding-left: 10px; /* Jarak dari titik-titik jika ada */
-}
-
-/* Styling untuk nomor halaman (jika Anda aktifkan placeholder-nya) */
-.page-number-display {
-    position: absolute;
-    bottom: 10mm; /* Sesuaikan posisi dari bawah */
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-size: 10px;
-    color: #555;
-}
-
-/* ... (CSS Anda yang sudah ada) ... */
-
-/* Styling untuk  Kanan Pratinjau (Wrapper baru) */
-.preview-section {
-  flex: 1; /* Mengambil sisa ruang di editor-container */
-  display: flex;
-  flex-direction: column;
-  background: #e9ecef; /* Background untuk area pratinjau keseluruhan */
-  overflow: hidden; /* Mencegah scroll ganda jika preview-panel juga scroll */
-}
-
-/* Styling untuk Kontrol Navigasi Pratinjau */
-.preview-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  background-color: #f8f9fa; /* Background untuk bar kontrol */
-  border-bottom: 1px solid #dee2e6;
-  flex-shrink: 0; /* Agar tidak mengecil */
-}
-
-.preview-controls button {
-  background-color: #6f42c1; /* Warna ungu seperti tombol save */
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 0 10px;
-  font-size: 14px;
-  display: inline-flex;
-  align-items: center;
-}
-.preview-controls button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-}
-.preview-controls button:hover:not(:disabled) {
-  background-color: #5a32a3;
-}
-.preview-controls button i {
-  font-size: 12px;
-}
-.preview-controls button .fa-chevron-left {
-  margin-right: 6px;
-}
-.preview-controls button .fa-chevron-right {
-  margin-left: 6px;
-}
-
-
-#pageIndicator {
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-  min-width: 100px; /* Agar lebar stabil */
   text-align: center;
 }
-
-/* Penyesuaian untuk .preview-panel agar mengisi sisa ruang di .preview-section */
-.preview-panel {
-  flex-grow: 1; /* Mengisi sisa ruang di .preview-section */
-  /* background: #e9ecef; Dihapus, karena .preview-section sudah punya background */
-  padding: 20px;
-  overflow-y: auto;
-  display: block;
+.modal-content h3 {
+  margin: 0;
+  font-size: 18px;
 }
-
-/* ... (CSS Anda yang sudah ada) ... */
-
-/* Styling untuk Input Sub-BAB di Form Editor */
-.bab-section .sub-bab-controls {
-  margin-top: 10px;
-  margin-bottom: 10px;
+.modal-content .btn {
+  width: 100%;
 }
-
-.add-sub-bab-button { /* Tombol "+ Tambah Sub-BAB" */
-  background-color: #f0f0f0;
-  border: 1px dashed #ccc;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 13px;
+.modal-content #download-cancel {
+  background-color: #ccc;
+  color: var(--color-text-dark);
 }
-.add-sub-bab-button:hover {
-  background-color: #e0e0e0;
-}
-
-.sub-bab-list-container {
-  margin-left: 20px; /* Indentasi untuk daftar sub-bab di form */
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.sub-bab-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px;
-  border: 1px solid #e9ecef;
-  border-radius: 4px;
-}
-
-.sub-bab-item .sub-bab-number-display {
-  font-weight: bold;
-  font-size: 13px;
-  flex-shrink: 0;
-  padding: 0 5px;
-  color: #555;
-}
-
-.sub-bab-item .sub-bab-title { /* Input judul Sub-BAB */
-  flex-grow: 1;
-  padding: 8px; /* Sesuaikan paddingnya */
-  font-size: 13px; /* Sesuaikan fontnya */
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  background-color: #fdfdfd; /* Sedikit beda dari input BAB utama */
-}
-
-.remove-sub-bab-button {
-  background: transparent;
-  border: none;
-  color: #ef4444; /* Warna merah untuk tombol hapus */
-  font-size: 1.1em;
-  cursor: pointer;
-  padding: 0 5px;
-}
-
-
-
-.toc-entry.toc-level-2 {
-  margin-left: 20mm;
+.modal-content #download-cancel:hover {
+  background-color: #bbb;
 }

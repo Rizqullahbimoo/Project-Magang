@@ -3,17 +3,233 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Konstruksi - DocTemp</title>
+  <title>Create Template - DocTemp</title>
   <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <script src="https://unpkg.com/html-docx-js/dist/html-docx.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
-  <h1>Konstruksi Page</h1>
-  <p>This is the Konstruksi page content.</p>
-  <img src="asset/konstruksi.jpg" alt="Konstruksi Image" style="max-width: 100%; height: auto;" />
-  <img src="asset/konsultansi.jpg" alt="Konsultansi Image" style="max-width: 100%; height: auto;" />
-  <img src="asset/Logo PLNE.png" alt="PLN Logo" style="max-width: 100%; height: auto;" />
-  <img src="asset/pdf.png" alt="PDF Icon" style="height: 20px; vertical-align: middle;" />
-  <img src="asset/word.png" alt="Word Icon" style="height: 20px; vertical-align: middle;" />
+<div class="page-container">
+    <header>
+        <h1>Pengadaan Jasa Konstruksi</h1>
+        <p>No RKS: 00.RKS/P.00.03/PLNE01200/2024</p>
+        <p>Bulan: November, Tahun: 2024</p>
+    </header>
+    <nav class="top-nav">
+      <div class="nav-left">
+        <a href="home-simple.html"><i class="fas fa-home"></i> Home</a>
+      </div>
+      <div class="nav-center">
+        <img src="asset/Logo PLNE.png" alt="PLN Logo" class="nav-logo"/>
+        <img src="asset/DocTemp Logo.png" alt="PLN DocTemp Logo" />
+      </div>
+      <div class="nav-right">
+        <button class="icon-button" id="undo-button" title="Undo"><i class="fas fa-undo"></i></button>
+        <button class="icon-button" id="redo-button" title="Redo"><i class="fas fa-redo"></i></button>
+        <!-- Language selection removed as per request -->
+        <button class="nav-button-download" id="download-button">Download</button>
+      </div>
+    </nav>
+
+    <div class="editor-container">
+      <div class="editor-form">
+        
+        <!-- ====================================================== -->
+        <!-- BAGIAN FORM YANG TELAH DIPERBAIKI DENGAN STRUKTUR GRID -->
+        <!-- ====================================================== -->
+
+        <div class="form-section">
+          <h2 class="form-section-title">DATA MASTER</h2>
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="data-jenis-pekerjaan">1. Jenis Pekerjaan</label>
+              <select id="data-jenis-pekerjaan" class="form-select">
+                <option>Pengadaan Jasa Konsultansi</option>
+                <option>Pengadaan Jasa Konstruksi</option>
+                <option>Pengadaan Barang/Jasa Lainnya</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="data-judul-pengadaan">2. Judul Pengadaan</label>
+              <input type="text" id="data-judul-pengadaan" class="form-input" placeholder="Pekerjaan Jasa Konstruksi..." />
+            </div>
+
+            <div class="form-group">
+              <label for="data-no-rks">3. No RKS</label>
+              <input type="text" id="data-no-rks" class="form-input" placeholder="00.RKS/P.00.03/PLNE01200/2024" />
+            </div>
+
+            <div class="form-group">
+              <label for="data-tanggal-rks">4. Tanggal RKS</label>
+              <select id="data-tanggal-rks" class="form-select">
+                <option value="" disabled selected>Pilih</option>
+                <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="data-bulan-rks">5. Bulan RKS</label>
+              <select id="data-bulan-rks" class="form-select">
+                <option>Januari</option> <option>Februari</option> <option>Maret</option>
+                <option>April</option> <option>Mei</option> <option>Juni</option>
+                <option>Juli</option> <option>Agustus</option> <option>September</option>
+                <option>Oktober</option> <option selected>November</option> <option>Desember</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="data-tahun-rks">6. Tahun RKS</label>
+              <input type="number" id="data-tahun-rks" class="form-input" placeholder="2024" />
+            </div>
+            
+            <div class="form-group">
+              <label for="data-metode-pengadaan">7. Metode Pengadaan</label>
+              <select id="data-metode-pengadaan" class="form-select">
+                <option>Seleksi Umum</option>
+                <option selected>Seleksi Terbatas</option>
+                <option>Penunjukan Langsung</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="data-metode-penyampaian">8. Metode Penyampaian</label>
+              <select id="data-metode-penyampaian" class="form-select">
+                <option selected>Satu Tahap Satu Sampul</option>
+                <option>Satu Tahap Dua Sampul</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="data-spt-tahun">9. SPT Tahun</label>
+              <input type="number" id="data-spt-tahun" class="form-input" placeholder="2024" />
+            </div>
+
+            <div class="form-group">
+              <label for="data-ppn-tahun">10. PPN Tahun</label>
+              <input type="number" id="data-ppn-tahun" class="form-input" placeholder="2024" />
+            </div>
+
+            <div class="form-group">
+              <label for="data-laporan-keuangan-tahun">11. Lap. Keuangan</label>
+              <input type="number" id="data-laporan-keuangan-tahun" class="form-input" placeholder="2024" />
+            </div>
+
+            <div class="form-group">
+              <label for="data-metode-evaluasi">12. Metode Evaluasi</label>
+              <select id="data-metode-evaluasi" class="form-select">
+                <option>Sistem Kualitas</option>
+                <option>Sistem Biaya Terendah</option>
+                <option selected>Sistem Kualitas dan Biaya</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="data-pengguna">13. Pengguna</label>
+              <input type="text" id="data-pengguna" class="form-input" placeholder="direktur xxxx" />
+            </div>
+
+            <div class="form-group">
+              <label for="data-direksi-pekerjaan">14. Direksi Pekerjaan</label>
+              <input type="text" id="data-direksi-pekerjaan" class="form-input" placeholder="vice president xxxx" />
+            </div>
+
+            <div class="form-group">
+              <label for="data-pengawas-pekerjaan">15. Pengawas Pekerjaan</label>
+              <input type="text" id="data-pengawas-pekerjaan" class="form-input" placeholder="manajer xxxx" />
+            </div>
+
+            <div class="form-group">
+              <label for="data-pengalaman-pekerjaan">16. Pengalaman Sejenis</label>
+              <input type="text" id="data-pengalaman-pekerjaan" class="form-input" placeholder="xxxx" />
+            </div>
+
+            <div class="form-group">
+              <label for="data-proyek">17. Proyek</label>
+              <input type="text" id="data-proyek" class="form-input" placeholder="Proses Bisnis PT PLN Enjiniring" />
+            </div>
+
+            <div class="form-group">
+              <label for="data-jenis-perjanjian">18. Jenis Perjanjian</label>
+              <input type="text" id="data-jenis-perjanjian" class="form-input" placeholder="Perjanjian/Kontrak Lumsum" />
+            </div>
+
+            <div class="form-group">
+              <label for="data-tata-cara-pembayaran">19. Tata Cara Pembayaran</label>
+              <select id="data-tata-cara-pembayaran" class="form-select">
+                <option>Angsuran/Termin</option>
+                <option>Bulanan/Monthly</option>
+              </select>
+            </div>
+
+          </div> 
+        </div>
+
+        <div class="form-section">
+          <h3 class="form-subsection-title">Pihak Terkait</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="data-disusun-jabatan">20. Disusun (Jabatan)</label>
+              <input type="text" id="data-disusun-jabatan" class="form-input" placeholder="Manajer Sub Bidang Perencana Pengadaan" />
+            </div>
+            <div class="form-group">
+              <label for="data-disusun-nama">21. Nama</label>
+              <input type="text" id="data-disusun-nama" class="form-input" placeholder="Indratno Hariyanto" />
+            </div>
+
+            <div class="form-group">
+              <label for="data-mengetahui-jabatan">22. Mengetahui (Jabatan)</label>
+              <input type="text" id="data-mengetahui-jabatan" class="form-input" placeholder="VICE PRESIDENT PEMASARAN" />
+            </div>
+            <div class="form-group">
+              <label for="data-mengetahui-nama">23. Nama</label>
+              <input type="text" id="data-mengetahui-nama" class="form-input" placeholder="Hanung Natendra Sukandrio" />
+            </div>
+
+            <div class="form-group">
+              <label for="data-menyetujui-jabatan">24. Menyetujui (Jabatan)</label>
+              <input type="text" id="data-menyetujui-jabatan" class="form-input" placeholder="VICE PRESIDENT SUMBER DAYA ENJINIRING DAN UMUM" />
+            </div>
+            <div class="form-group">
+              <label for="data-menyetujui-nama">25. Nama</label>
+              <input type="text" id="data-menyetujui-nama" class="form-input" placeholder="RIZKI YAYU FEBERINA" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bagian Pratinjau -->
+      <div class="preview-section">
+        <div class="preview-panel" id="preview">
+          <!-- Seluruh dokumen akan dirender di sini sebagai satu blok yang bisa di-scroll -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Download format selection popup modal -->
+ <div id="download-format-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Pilih Format Download</h3>
+      <button id="download-word" class="download-option">
+        <img src="asset/word.png" alt="Word Icon" style="height:20px; margin-right:8px; vertical-align:middle;" />
+        Word
+      </button>
+      <button id="download-pdf" class="download-option">
+        <img src="asset/pdf.png" alt="PDF Icon" style="height:20px; margin-right:8px; vertical-align:middle;" />
+        PDF
+      </button>
+      <button id="download-cancel">Batal</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
   <script src="konstruksi.js"></script>
 </body>
 </html>
