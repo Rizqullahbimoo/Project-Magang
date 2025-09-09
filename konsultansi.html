@@ -223,4 +223,25 @@
   <script src="script.js"></script>
   <script src="konsultansi.js"></script>
 </body>
+<!-- Modal Download -->
+<div id="download-modal" class="modal hidden">
+  <div class="modal-content">
+    <h2>Download Dokumen</h2>
+    <form id="download-form">
+      <label for="doc-name">Nama Dokumen:</label>
+      <input type="text" id="doc-name" name="doc-name" placeholder="Nama Dokumen" required>
+
+      <div class="radio-group">
+        <label><input type="radio" name="file-type" value="docx" checked> .docx</label>
+        <label><input type="radio" name="file-type" value="pdf"> .pdf</label>
+      </div>
+
+      <div class="modal-actions">
+        <button type="submit" class="btn-confirm">Download</button>
+        <button type="button" id="cancel-download" class="btn-cancel">Batal</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 </html>
