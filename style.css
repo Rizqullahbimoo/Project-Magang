@@ -428,7 +428,7 @@ body {
 .cover-bab-list p { font-size: 14px; font-weight: normal; text-align: left; margin: 5px 0 5px 20%;}
 .toc-title { font-size: 18px; margin-bottom: 25px; }
 .toc-entry { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 12px; }
-.bab-title-for-break { page-break-before: always; font-size: 14px; }
+.bab-title-for-break { font-size: 14px; }
 .bab-content-section:first-child .bab-title-for-break { page-break-before: auto; }
 .bab-subtitle { font-size: 13px; margin-bottom: 20px; }
 .bab-text-content { line-height: 1.6; text-align: justify; }
